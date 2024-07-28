@@ -94,7 +94,7 @@ class AppNavigator {
     String? faceURL,
     bool offAllWhenDelFriend = false,
     bool offAndToNamed = false,
-    bool isFriendShip =false,
+    bool isFriendShip = false,
   }) {
     GetTags.createUserProfileTag();
 
@@ -171,7 +171,8 @@ class AppNavigator {
   static startMyInfo() => Get.toNamed(AppRoutes.myInfo);
 
   static startEditMyInfo({EditAttr attr = EditAttr.nickname, int? maxLength}) =>
-      Get.toNamed(AppRoutes.editMyInfo, arguments: {'editAttr': attr, 'maxLength': maxLength});
+      Get.toNamed(AppRoutes.editMyInfo,
+          arguments: {'editAttr': attr, 'maxLength': maxLength});
 
   static startAccountSetup() => Get.toNamed(AppRoutes.accountSetup);
 
@@ -192,7 +193,8 @@ class AppNavigator {
         'conversationInfo': conversationInfo,
       });
 
-  static startSetBackgroundImage() => Get.offAndToNamed(AppRoutes.setBackgroundImage);
+  static startSetBackgroundImage() =>
+      Get.offAndToNamed(AppRoutes.setBackgroundImage);
 
   static startSetFontSize() => Get.toNamed(AppRoutes.setFontSize);
 
@@ -359,7 +361,8 @@ class AppNavigator {
 
   static startCallRecords() => Get.toNamed(AppRoutes.callRecords);
 
-  static startRegister() => Get.toNamed(AppRoutes.register);
+  static startRegister(String way) =>
+      Get.toNamed(AppRoutes.register, arguments: {'registerWay': way});
 
   static void startVerifyPhone({
     required String phoneNumber,
@@ -435,15 +438,14 @@ class AppNavigator {
     Get.toNamed(AppRoutes.SEND_FRIEND_REQUEST, arguments: info);
   }
 
-
   static void startFriendIDCode({required UserFullInfo info}) {
     Get.toNamed(AppRoutes.FRIEND_ID_CODE, arguments: info);
   }
 
-  static Future<T?>? startSetFriendRemarksName<T>({required UserFullInfo info}) {
+  static Future<T?>? startSetFriendRemarksName<T>(
+      {required UserFullInfo info}) {
     return Get.toNamed(AppRoutes.FRIEND_REMARK, arguments: info);
   }
-
 
   static void startMessageSearch({required ConversationInfo info}) {
     Get.toNamed(AppRoutes.SEARCH_HISTORY_MESSAGE, arguments: info);
@@ -463,7 +465,6 @@ class AppNavigator {
       'type': type,
     });
   }
-
 
   static void createGroup({
     int groupType = GroupType.general,
@@ -506,7 +507,6 @@ class AppNavigator {
     return Get.toNamed(AppRoutes.SET_BACKGROUND_IMAGE);
   }
 
-
   static startUnlockVerification() {
     return Get.toNamed(
       AppRoutes.UNLOCK_VERIFICATION,
@@ -514,4 +514,24 @@ class AppNavigator {
     );
   }
 
+  static void startRegisterVerifyPhoneOrEmail({
+    String? email,
+    String? phoneNumber,
+    String? areaCode,
+    required int usedFor,
+    String? invitationCode,
+  }) {
+    Get.toNamed(AppRoutes.REGISTER_VERIFY_PHONE, arguments: {
+      'phoneNumber': phoneNumber,
+      'areaCode': areaCode,
+      'email': email,
+      'usedFor': usedFor,
+      'invitationCode': invitationCode
+    });
+  }
+
+  static void startForgetPassword({String accountType = "phone"}) {
+    Get.toNamed(AppRoutes.FORGET_PASSWORD,
+        arguments: {"accountType": accountType});
+  }
 }

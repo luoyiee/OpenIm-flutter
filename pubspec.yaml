@@ -106,6 +106,7 @@ dependencies:
   #  flutter_openim_widget: 2.3.2
   flutter_sound: ^9.6.0
   speech_to_text: ^6.6.0
+  flutter_bugly: ^0.4.4
 
   flutter_download_manager:
     path: local_plugin/flutter_download_manager
@@ -114,15 +115,15 @@ dependencies:
   openim_live:
     path: openim_live
 
-  flutter_openim_sdk:
-    path: openim_sdk
+#  flutter_openim_sdk:
+#    path: openim_sdk
 
   intl: ^0.19.0
 
 dependency_overrides:
   wechat_assets_picker: ^8.9.0-dev.1
   photo_manager: ^3.0.0-dev.2
-#  flutter_openim_sdk: 3.5.1
+  flutter_openim_sdk: 3.5.1
 
 dev_dependencies:
   flutter_test:

@@ -35,7 +35,8 @@ class CustomCupertinoControls extends StatefulWidget {
   }
 }
 
-class _CustomCupertinoControlsState extends State<CustomCupertinoControls> with SingleTickerProviderStateMixin {
+class _CustomCupertinoControlsState extends State<CustomCupertinoControls>
+    with SingleTickerProviderStateMixin {
   late PlayerNotifier notifier;
   late VideoPlayerValue _latestValue;
   double? _latestVolume;
@@ -159,7 +160,8 @@ class _CustomCupertinoControlsState extends State<CustomCupertinoControls> with 
   ) {
     final options = <OptionItem>[];
 
-    if (chewieController.additionalOptions != null && chewieController.additionalOptions!(context).isNotEmpty) {
+    if (chewieController.additionalOptions != null &&
+        chewieController.additionalOptions!(context).isNotEmpty) {
       options.addAll(chewieController.additionalOptions!(context));
     }
 
@@ -176,7 +178,8 @@ class _CustomCupertinoControlsState extends State<CustomCupertinoControls> with 
             useRootNavigator: chewieController.useRootNavigator,
             builder: (context) => CupertinoOptionsDialog(
               options: options,
-              cancelButtonText: chewieController.optionsTranslation?.cancelButtonText,
+              cancelButtonText:
+                  chewieController.optionsTranslation?.cancelButtonText,
             ),
           );
           if (_latestValue.isPlaying) {
@@ -278,8 +281,11 @@ class _CustomCupertinoControlsState extends State<CustomCupertinoControls> with 
                           _buildProgressBar(),
                           _buildRemaining(iconColor),
                           _buildSubtitleToggle(iconColor, barHeight),
-                          if (chewieController.allowPlaybackSpeedChanging) _buildSpeedButton(controller, iconColor, barHeight),
-                          if (chewieController.additionalOptions != null && chewieController.additionalOptions!(context).isNotEmpty)
+                          if (chewieController.allowPlaybackSpeedChanging)
+                            _buildSpeedButton(controller, iconColor, barHeight),
+                          if (chewieController.additionalOptions != null &&
+                              chewieController
+                                  .additionalOptions!(context).isNotEmpty)
                             _buildOptionsButton(iconColor, barHeight),
                         ],
                       ),
@@ -325,7 +331,9 @@ class _CustomCupertinoControlsState extends State<CustomCupertinoControls> with 
               color: backgroundColor,
               child: Center(
                 child: Icon(
-                  chewieController.isFullScreen ? CupertinoIcons.arrow_down_right_arrow_up_left : CupertinoIcons.arrow_up_left_arrow_down_right,
+                  chewieController.isFullScreen
+                      ? CupertinoIcons.arrow_down_right_arrow_up_left
+                      : CupertinoIcons.arrow_up_left_arrow_down_right,
                   color: iconColor,
                   size: 16,
                 ),
@@ -339,7 +347,8 @@ class _CustomCupertinoControlsState extends State<CustomCupertinoControls> with 
 
   Widget _buildHitArea() {
     final bool isFinished = _latestValue.position >= _latestValue.duration;
-    final bool showPlayButton = widget.showPlayButton && !_latestValue.isPlaying && !_dragging;
+    final bool showPlayButton =
+        widget.showPlayButton && !_latestValue.isPlaying && !_dragging;
 
     return GestureDetector(
       onTap: _latestValue.isPlaying
@@ -742,20 +751,23 @@ class _CustomCupertinoControlsState extends State<CustomCupertinoControls> with 
   void _skipBack() {
     _cancelAndRestartTimer();
     final beginning = Duration.zero.inMilliseconds;
-    final skip = (_latestValue.position - const Duration(seconds: 15)).inMilliseconds;
+    final skip =
+        (_latestValue.position - const Duration(seconds: 15)).inMilliseconds;
     controller.seekTo(Duration(milliseconds: math.max(skip, beginning)));
   }
 
   void _skipForward() {
     _cancelAndRestartTimer();
     final end = _latestValue.duration.inMilliseconds;
-    final skip = (_latestValue.position + const Duration(seconds: 15)).inMilliseconds;
+    final skip =
+        (_latestValue.position + const Duration(seconds: 15)).inMilliseconds;
     controller.seekTo(Duration(milliseconds: math.min(skip, end)));
   }
 
   void _startHideTimer() {
-    final hideControlsTimer =
-        chewieController.hideControlsTimer.isNegative ? ChewieController.defaultHideControlsTimer : chewieController.hideControlsTimer;
+    final hideControlsTimer = chewieController.hideControlsTimer.isNegative
+        ? ChewieController.defaultHideControlsTimer
+        : chewieController.hideControlsTimer;
     _hideTimer = Timer(hideControlsTimer, () {
       setState(() {
         notifier.hideStuff = true;
@@ -822,7 +834,8 @@ class _PlaybackSpeedDialog extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (e == _selected) Icon(Icons.check, size: 20.0, color: selectedColor),
+                  if (e == _selected)
+                    Icon(Icons.check, size: 20.0, color: selectedColor),
                   Text(e.toString()),
                 ],
               ),

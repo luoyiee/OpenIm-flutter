@@ -1449,4 +1449,5 @@ class IMUtils {
       );
 
   static bool isNotNullStr(String? str) => null != str && "" != str.trim();
+
 }

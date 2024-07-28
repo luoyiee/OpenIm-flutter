@@ -85,6 +85,7 @@ dependencies:
   syncfusion_flutter_core: ^26.1.41
   syncfusion_flutter_sliders: ^26.1.41
   flutter_map: ^6.0.1
+  flutter_bugly: ^0.4.4
 
   flutter_download_manager:
     path: ../local_plugin/flutter_download_manager

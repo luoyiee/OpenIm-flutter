@@ -6,6 +6,7 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_bugly/flutter_bugly.dart';
 
 class Config {
   static Future init(Function() runApp) async {
@@ -17,7 +18,9 @@ class Config {
       await Hive.initFlutter(path);
       await SpeechToTextUtil.instance.initSpeech();
       HttpUtil.init();
-    } catch (_) {}
+    } catch (e) {
+      print("Initialization error: $e");
+    }
 
     runApp();
 
@@ -32,6 +35,8 @@ class Config {
       statusBarBrightness: brightness,
       statusBarIconBrightness: brightness,
     ));
+
+    // FlutterBugly.init(androidAppId: "4103e474e9", iOSAppId: "28849b1ca6");
   }
 
   static late String cachePath;

@@ -73,6 +73,7 @@
         android:label="LuckyIm"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
+        android:enableOnBackInvokedCallback="true"
         tools:replace="android:label">
         <activity
             android:name="cn.rentsoft.flutter.openim.consumer.MainActivity"

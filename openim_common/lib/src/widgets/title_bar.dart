@@ -331,4 +331,20 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
   //       ),
   //       right = null,
   //       left = null;
+
+
+  // static Widget backButton({double left = 32}) {
+  //   return Container(
+  //     margin: EdgeInsets.only(top: 26.h, left: left.w),
+  //     child: ImageButton(
+  //       onTap: () => Get.back(),
+  //       imgStrRes: ImageRes.ic_backBigBlue,
+  //       alignment: Alignment.centerLeft,
+  //       imgWidth: 36.w,
+  //       imgHeight: 33.h,
+  //       color: Styles.c_0089FF,
+  //       package: 'openim_common',
+  //     ),
+  //   );
+  // }
 }

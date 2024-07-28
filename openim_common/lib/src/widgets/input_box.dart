@@ -8,6 +8,7 @@ import 'package:openim_common/openim_common.dart';
 
 enum InputBoxType {
   phone,
+  email,
   account,
   password,
   verificationCode,
@@ -36,6 +37,28 @@ class InputBox extends StatefulWidget {
         arrowColor = null,
         clearBtnColor = null,
         onSendVerificationCode = null;
+
+  const InputBox.email({
+    super.key,
+    required this.label,
+    this.controller,
+    this.focusNode,
+    this.labelStyle,
+    this.textStyle,
+    this.codeStyle,
+    this.hintStyle,
+    this.formatHintStyle,
+    this.hintText,
+    this.formatHintText,
+    this.margin,
+    this.inputFormatters,
+  })  : obscureText = false,
+        type = InputBoxType.email,
+        arrowColor = null,
+        clearBtnColor = null,
+        onSendVerificationCode = null,
+        code = '',
+        onAreaCode = null;
 
   const InputBox.password({
     super.key,
@@ -160,6 +183,21 @@ class _InputBoxState extends State<InputBox> {
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(InputBox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      oldWidget.controller?.removeListener(_onChanged);
+      widget.controller?.addListener(_onChanged);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controller?.removeListener(_onChanged);
+    super.dispose();
+  }
+
   void _onChanged() {
     setState(() {
       _showClearBtn = widget.controller!.text.isNotEmpty;
@@ -195,10 +233,14 @@ class _InputBoxState extends State<InputBox> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget.type == InputBoxType.phone) _areaCodeView,
+                if (widget.type == InputBoxType.phone)
+                  _areaCodeView,
+
                 _textField,
                 _clearBtn,
                 _eyeBtn,
+
+
                 if (widget.type == InputBoxType.verificationCode)
                   VerifyCodedButton(
                     onTapCallback: widget.onSendVerificationCode,
@@ -300,6 +342,9 @@ class _InputBoxState extends State<InputBox> {
       case InputBoxType.phone:
         keyboardType = TextInputType.phone;
         break;
+      case InputBoxType.email:
+        keyboardType = TextInputType.emailAddress;
+        break;
       case InputBoxType.account:
         keyboardType = TextInputType.text;
         break;
@@ -323,10 +368,10 @@ class VerifyCodedButton extends StatefulWidget {
   final Future<bool> Function()? onTapCallback;
 
   const VerifyCodedButton({
-    Key? key,
+    super.key,
     this.seconds = 300,
     required this.onTapCallback,
-  }) : super(key: key);
+  });
 
   @override
   State<VerifyCodedButton> createState() => _VerifyCodedButtonState();

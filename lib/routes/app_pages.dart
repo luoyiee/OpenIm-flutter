@@ -4,6 +4,7 @@ import 'package:openim/pages/chat/chat_setup/font_size/font_size_binding.dart';
 import 'package:openim/pages/chat/chat_setup/font_size/font_size_view.dart';
 import 'package:openim/pages/contacts/contacts_view.dart';
 import 'package:openim/pages/contacts/friend_info/friend_info_view.dart';
+import 'package:openim/pages/forget_password/forget_password_view.dart';
 
 import '../pages/chat/chat_binding.dart';
 import '../pages/chat/chat_setup/background_image/background_image_binding.dart';
@@ -80,6 +81,7 @@ import '../pages/contacts/user_profile_panel/set_remark/set_remark_binding.dart'
 import '../pages/contacts/user_profile_panel/set_remark/set_remark_view.dart';
 import '../pages/contacts/user_profile_panel/user_profile _panel_binding.dart';
 import '../pages/contacts/user_profile_panel/user_profile _panel_view.dart';
+import '../pages/forget_password/forget_password_binding.dart';
 import '../pages/home/home_binding.dart';
 import '../pages/home/home_view.dart';
 import '../pages/login/login_binding.dart';
@@ -414,6 +416,12 @@ class AppPages {
       name: AppRoutes.UNLOCK_VERIFICATION,
       page: () => UnlockVerificationPage(),
       binding: UnlockVerificationBinding(),
+    ),
+
+    _pageBuilder(
+      name: AppRoutes.FORGET_PASSWORD,
+      page: () => ForgetPasswordPage(),
+      binding: ForgetPasswordBinding(),
     ),
   ];
 }

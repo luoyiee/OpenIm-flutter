@@ -68,9 +68,10 @@ A: Support, follow the system language by default
 
 A: The demo currently supports android and ios.
 
-##### 3. The debug of the android installation package can run, but the release starts with a white screen?
+##### 3. The debug of the android installation package can run, but the release starts with a 
+white screen?
 
-A: The release package of flutter is obfuscated by default. You can use the command: flutter build release --no -shrink. If this command is invalid, you can do the following
+A: The release package of flutter is obfuscated by default. You can use the command: flutter build release --no-shrink. If this command is invalid, you can do the following
 
 Add the following configuration to the release configuration configured in android/app/build.gradle
 

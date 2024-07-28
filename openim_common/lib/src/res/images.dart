@@ -187,7 +187,7 @@ class ImageRes {
 
 
   ///拓展
-  static const ic_backBigBlue = "$_dir/ric_back_big_blue.webp";
+  static const ic_backBigBlue = "$_dir/ic_back_big_blue.webp";
   static const ic_back = "$_dir/ic_back_black.webp";
   static const ic_call = "$_dir/ic_call_black2.webp";
   static const ic_more = "$_dir/ic_more_info.webp";
@@ -213,4 +213,6 @@ class ImageRes {
   static const ic_radioSelWhite = "${_dir}/ic_radio_sel_white.webp";
   static const ic_radioNorBlue = "${_dir}/ic_radio_nor_blue.webp";
   static const ic_radioSelBlue = "${_dir}/ic_radio_sel_blue.webp";
+  static const ic_areaCodeMoreArrow = "${_dir}/ic_areacode_more.webp";
+  static const ic_clearInput = "${_dir}/ic_clear_input.webp";
 }

@@ -19,9 +19,9 @@ class PreviewMergeMsg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EnterpriseTitleBar.back(
+      appBar: TitleBar.back(
         title: title,
-        showShadow: false,
+        // showShadow: false,
       ),
       backgroundColor: Styles.c_F8F8F8,
       body: ListView.builder(

@@ -84,6 +84,8 @@ abstract class AppRoutes {
   static const PREVIEW_CHAT_HISTORY = "/preview_chat_history";
   static const UNLOCK_VERIFICATION = "/unlock_verification";
   static const LANGUAGE_SETUP = "/language_setup";
+  static const REGISTER_VERIFY_PHONE = '/register_verify_phone';
+  static const FORGET_PASSWORD = "/forget_password";
 }
 
 extension RoutesExtension on String {

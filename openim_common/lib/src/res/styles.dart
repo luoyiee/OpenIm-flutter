@@ -32,6 +32,7 @@ class Styles {
   static const c_1D6BED = Color(0xFF1D6BED);
   static const c_D8D8D8 = Color(0xFFD8D8D8);
   static const c_F0F0F0 = Color(0xFFF0F0F0);
+  static const c_A2A3A5 = Color(0xFFA2A3A5);
 
   static Color c_92B3E0_opacity50 = c_92B3E0.withOpacity(.5);
   static Color c_E8EAEF_opacity50 = c_E8EAEF.withOpacity(.5);
@@ -60,6 +61,7 @@ class Styles {
   static Color c_000000_opacity15 = c_000000.withOpacity(.15);
   static Color c_000000_opacity12 = c_000000.withOpacity(.12);
   static Color c_000000_opacity4 = c_000000.withOpacity(.04);
+  static var c_000000_opacity40p = Color(0xFF000000).withOpacity(0.4);
   static var c_000000_opacity10p = Color(0xFF000000).withOpacity(0.10);
 
   static TextStyle ts_FFFFFF_21sp = TextStyle(
@@ -402,5 +404,26 @@ class Styles {
   static var ts_1B72EC_16sp = TextStyle(
     fontSize: 16.sp,
     color: Color(0xFF1B72EC),
+  );
+
+  static var ts_171A1D_26sp_medium = TextStyle(
+    fontSize: 26.sp,
+    color: Color(0xFF171A1D),
+    fontWeight: FontWeight.w500,
+  );
+
+  static var ts_171A1D_14sp = TextStyle(
+    fontSize: 14.sp,
+    color: Color(0xFF171A1D),
+  );
+
+  static var ts_171A1D0_opacity40p_17sp = TextStyle(
+    fontSize: 17.sp,
+    color: Color(0xFF171A1D).withOpacity(0.4),
+  );
+
+  static var ts_171A1D_17sp = TextStyle(
+    fontSize: 17.sp,
+    color: Color(0xFF171A1D),
   );
 }
