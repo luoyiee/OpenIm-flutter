@@ -12,6 +12,7 @@ class VerifyPhoneLogic extends GetxController {
   final codeEditCtrl = TextEditingController();
   final enabled = false.obs;
   late String phoneNumber;
+  late String email;
   late String areaCode;
   late int usedFor;
   String? invitationCode;
@@ -19,6 +20,7 @@ class VerifyPhoneLogic extends GetxController {
   @override
   void onInit() {
     phoneNumber = Get.arguments['phoneNumber'];
+    email = Get.arguments['email'];
     areaCode = Get.arguments['areaCode'];
     usedFor = Get.arguments['usedFor'];
     invitationCode = Get.arguments['invitationCode'];
@@ -44,7 +46,7 @@ class VerifyPhoneLogic extends GetxController {
       asyncFunction: () => Apis.requestVerificationCode(
             areaCode: areaCode,
             phoneNumber: phoneNumber,
-            email: null,
+            email: email,
             usedFor: usedFor,
             invitationCode: invitationCode,
           ));
@@ -53,7 +55,7 @@ class VerifyPhoneLogic extends GetxController {
       Apis.checkVerificationCode(
         areaCode: areaCode,
         phoneNumber: phoneNumber,
-        email: null,
+        email: email,
         verificationCode: verificationCode,
         usedFor: usedFor,
         invitationCode: invitationCode,

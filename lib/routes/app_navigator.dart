@@ -364,15 +364,17 @@ class AppNavigator {
   static startRegister(String way) =>
       Get.toNamed(AppRoutes.register, arguments: {'registerWay': way});
 
-  static void startVerifyPhone({
-    required String phoneNumber,
-    required String areaCode,
+  static void startRegisterVerifyPhoneOrEmail({
+    String? phoneNumber,
+    String? areaCode,
     required int usedFor,
+    String? email,
     String? invitationCode,
   }) =>
       Get.toNamed(AppRoutes.verifyPhone, arguments: {
         'phoneNumber': phoneNumber,
         'areaCode': areaCode,
+        'email': email,
         'usedFor': usedFor,
         'invitationCode': invitationCode
       });
@@ -512,22 +514,6 @@ class AppNavigator {
       AppRoutes.UNLOCK_VERIFICATION,
       arguments: {},
     );
-  }
-
-  static void startRegisterVerifyPhoneOrEmail({
-    String? email,
-    String? phoneNumber,
-    String? areaCode,
-    required int usedFor,
-    String? invitationCode,
-  }) {
-    Get.toNamed(AppRoutes.REGISTER_VERIFY_PHONE, arguments: {
-      'phoneNumber': phoneNumber,
-      'areaCode': areaCode,
-      'email': email,
-      'usedFor': usedFor,
-      'invitationCode': invitationCode
-    });
   }
 
   static void startForgetPassword({String accountType = "phone"}) {

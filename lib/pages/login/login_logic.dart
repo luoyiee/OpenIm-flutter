@@ -23,7 +23,7 @@ class LoginLogic extends GetxController {
   final obscureText = true.obs;
   final enabled = false.obs;
   final areaCode = "+86".obs;
-  var index = 0.obs;
+  var loginIndex = 0.obs;
   var loginType = LoginType.password.obs;
   var phoneFocusNode = FocusNode();
   var emailFocusNode = FocusNode();
@@ -91,11 +91,12 @@ class LoginLogic extends GetxController {
   }
 
   login() {
-    if (index.value == 0 && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+    if (loginIndex.value == 0 &&
+        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
       IMViews.showToast('请输入正确的手机号');
       return;
     }
-    if (index.value == 1 && !GetUtils.isEmail(emailCtrl.text)) {
+    if (loginIndex.value == 1 && !GetUtils.isEmail(emailCtrl.text)) {
       IMViews.showToast('请输入正确的邮箱');
       return;
     }
@@ -113,8 +114,8 @@ class LoginLogic extends GetxController {
       final data = await Apis.login(
         areaCode: areaCode.value,
         // phoneNumber: phoneCtrl.text,
-        phoneNumber: index.value == 0 ? phoneCtrl.text : null,
-        email: index.value == 1 ? emailCtrl.text : null,
+        phoneNumber: loginIndex.value == 0 ? phoneCtrl.text : null,
+        email: loginIndex.value == 1 ? emailCtrl.text : null,
         password: IMUtils.emptyStrToNull(pwdCtrl.text),
         verificationCode: isPasswordLogin ? null : codeCtrl.text,
       );
@@ -147,8 +148,8 @@ class LoginLogic extends GetxController {
         binding: ServerConfigBinding(),
       );
 
-  void registerNow() =>
-      AppNavigator.startRegister(index.value == 0 ? 'phone' : 'email');
+  void registerNow(int index) =>
+      AppNavigator.startRegister(index == 0 ? 'email' : 'phone');
 
   void forgetPassword() {
     AppNavigator.startForgetPassword();
@@ -180,19 +181,19 @@ class LoginLogic extends GetxController {
   //       (phoneCtrl.text.isNotEmpty || emailCtrl.text.isNotEmpty);
   // }
 
-  void switchTab(index) {
+  void switchLoginTab(index) {
     // FocusScope.of(Get.context!).requestFocus(FocusNode());
-    this.index.value = index;
+    this.loginIndex.value = index;
     phoneCtrl.clear();
     emailCtrl.clear();
     pwdCtrl.clear();
-    if (index == 0) {
-      emailFocusNode.unfocus();
-      phoneFocusNode.requestFocus();
-    } else {
-      phoneFocusNode.unfocus();
-      emailFocusNode.requestFocus();
-    }
+    // if (index == 0) {
+    //   emailFocusNode.unfocus();
+    //   phoneFocusNode.requestFocus();
+    // } else {
+    //   phoneFocusNode.unfocus();
+    //   emailFocusNode.requestFocus();
+    // }
   }
 
   Future<bool> getVerificationCode() async {
@@ -200,8 +201,8 @@ class LoginLogic extends GetxController {
       await LoadingView.singleton.wrap(
           asyncFunction: () => Apis.requestVerificationCode(
                 areaCode: areaCode.value,
-                phoneNumber: index.value == 0 ? phoneCtrl.text : null,
-                email: index.value == 1 ? emailCtrl.text : null,
+                phoneNumber: loginIndex.value == 0 ? phoneCtrl.text : null,
+                email: loginIndex.value == 1 ? emailCtrl.text : null,
                 usedFor: 3,
               ));
       IMViews.showToast(StrRes.sendSuccessfully);

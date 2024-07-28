@@ -20,13 +20,19 @@ class RegisterPage extends StatelessWidget {
             StrRes.newUserRegister.toText
               ..style = Styles.ts_0089FF_22sp_semibold,
             29.verticalSpace,
-            Obx(() => InputBox.phone(
-                  label: StrRes.phoneNumber,
-                  hintText: StrRes.plsEnterPhoneNumber,
-                  code: logic.areaCode.value,
-                  onAreaCode: logic.openCountryCodePicker,
-                  controller: logic.phoneCtrl,
-                )),
+            Obx(() => logic.isPhoneRegister.value
+                ? InputBox.phone(
+                    label: StrRes.phoneNumber,
+                    hintText: StrRes.plsEnterPhoneNumber,
+                    code: logic.areaCode.value,
+                    onAreaCode: logic.openCountryCodePicker,
+                    controller: logic.phoneCtrl,
+                  )
+                : InputBox.email(
+                    label: '邮箱',
+                    hintText: '请输入邮箱',
+                    controller: logic.emailCtrl,
+                  )),
             16.verticalSpace,
             InputBox.invitationCode(
               label: StrRes.invitationCode,

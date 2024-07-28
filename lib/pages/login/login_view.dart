@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
                 child: Obx(() => Column(
                       children: [
                         Obx(
-                          () => logic.index.value == 0
+                          () => logic.loginIndex.value == 0
                               ? InputBox.phone(
                                   label: StrRes.phoneNumber,
                                   hintText: StrRes.plsEnterPhoneNumber,
@@ -115,9 +115,9 @@ class LoginPage extends StatelessWidget {
                       color: Styles.c_0089FF,
                       fontSize: 16.sp,
                     ),
-                    text: logic.index.value == 0 ? '邮箱 登录' : '手机号 登录',
+                    text: logic.loginIndex.value == 0 ? '邮箱 登录' : '手机号 登录',
                     onTap: () {
-                      logic.switchTab(logic.index.value == 0 ? 1 : 0);
+                      logic.switchLoginTab(logic.loginIndex.value == 0 ? 1 : 0);
                     },
                   ),
                 ),
@@ -157,7 +157,7 @@ class LoginPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context); // Return index 0
                 if (register) {
-                  logic.registerNow();
+                  logic.registerNow(0);
                 } else {
                   logic.forgetPassword();
                 }
@@ -169,7 +169,7 @@ class LoginPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context); // Return index 1
                 if (register) {
-                  logic.registerNow();
+                  logic.registerNow(1);
                 } else {
                   logic.forgetPassword();
                 }
