@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,14 +18,21 @@ class SetPasswordPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            StrRes.setInfo.toText..style = Styles.ts_0089FF_22sp_semibold,
+            (logic.isUsedForRegister ? StrRes.setInfo : '忘记密码').toText
+              ..style = Styles.ts_0089FF_22sp_semibold,
             29.verticalSpace,
-            InputBox(
-              label: StrRes.nickname,
-              hintText: StrRes.plsEnterYourNickname,
-              controller: logic.nicknameCtrl,
-            ),
-            17.verticalSpace,
+            Visibility(
+                visible: logic.isUsedForRegister,
+                child: Column(
+                  children: [
+                    InputBox(
+                      label: StrRes.nickname,
+                      hintText: StrRes.plsEnterYourNickname,
+                      controller: logic.nicknameCtrl,
+                    ),
+                    17.verticalSpace,
+                  ],
+                )),
             InputBox.password(
               label: StrRes.password,
               hintText: StrRes.plsEnterPassword,
@@ -40,7 +49,7 @@ class SetPasswordPage extends StatelessWidget {
             ),
             129.verticalSpace,
             Obx(() => Button(
-                  text: StrRes.registerNow,
+                  text: logic.isUsedForRegister ? StrRes.registerNow : '确认修改',
                   enabled: logic.enabled.value,
                   onTap: logic.nextStep,
                 )),

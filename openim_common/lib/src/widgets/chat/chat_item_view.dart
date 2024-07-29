@@ -504,123 +504,118 @@ class _ChatItemViewState extends State<ChatItemView> {
         // ),
       );
     } else if (_message.isPictureType) {
-      // child = ChatPictureView(
-      //   isISend: _isISend,
-      //   message: _message,
-      //   sendProgressStream: widget.sendProgressSubject,
-      // );
-      child = _buildCommonItemView(
-          isBubbleBg: false,
-          child: ChatPictureView(
-            isISend: _isISend,
-            message: _message,
-            sendProgressStream: widget.sendProgressSubject,
-          ));
+      child = ChatPictureView(
+        isISend: _isISend,
+        message: _message,
+        sendProgressStream: widget.sendProgressSubject,
+      );
+      // child = _buildCommonItemView(
+      //     isBubbleBg: false,
+      //     child: ChatPictureView(
+      //       isISend: _isISend,
+      //       message: _message,
+      //       sendProgressStream: widget.sendProgressSubject,
+      //     ));
     } else if (_message.isVoiceType) {
       var sound = widget.message.soundElem;
-      child = _buildCommonItemView(
-        child: ChatVoiceView(
-          msgId: widget.message.clientMsgID ?? "",
-          index: widget.index,
-          clickStream: widget.clickSubject.stream,
-          isReceived: !_isISend,
-          soundPath: sound?.soundPath,
-          soundUrl: sound?.sourceUrl,
-          duration: sound?.duration,
-          isPlaying: widget.isPlayingSound,
-          playingStateStream: widget.playingStateStream,
-        ),
+      child = ChatVoiceView(
+        msgId: widget.message.clientMsgID ?? "",
+        index: widget.index,
+        clickStream: widget.clickSubject.stream,
+        isReceived: !_isISend,
+        soundPath: sound?.soundPath,
+        soundUrl: sound?.sourceUrl,
+        duration: sound?.duration,
+        isPlaying: widget.isPlayingSound,
+        playingStateStream: widget.playingStateStream,
       );
-    } else if (_message.isVideoType) {
-      // final video = _message.videoElem;
-      // child = ChatVideoView(
-      //   isISend: _isISend,
-      //   message: _message,
-      //   sendProgressStream: widget.sendProgressSubject,
+      // child = _buildCommonItemView(
+      //   child: ChatVoiceView(
+      //     msgId: widget.message.clientMsgID ?? "",
+      //     index: widget.index,
+      //     clickStream: widget.clickSubject.stream,
+      //     isReceived: !_isISend,
+      //     soundPath: sound?.soundPath,
+      //     soundUrl: sound?.sourceUrl,
+      //     duration: sound?.duration,
+      //     isPlaying: widget.isPlayingSound,
+      //     playingStateStream: widget.playingStateStream,
+      //   ),
       // );
-      var video = widget.message.videoElem;
-      child = _buildCommonItemView(
-          isBubbleBg: false,
-          child: ChatVideoView(
-            isISend: _isISend,
-            message: _message,
-            sendProgressStream: widget.sendProgressSubject,
-          ));
+    } else if (_message.isVideoType) {
+      final video = _message.videoElem;
+      child = ChatVideoView(
+        isISend: _isISend,
+        message: _message,
+        sendProgressStream: widget.sendProgressSubject,
+      );
+      // var video = widget.message.videoElem;
+      // child = _buildCommonItemView(
+      //     isBubbleBg: false,
+      //     child: ChatVideoView(
+      //       isISend: _isISend,
+      //       message: _message,
+      //       sendProgressStream: widget.sendProgressSubject,
+      //     ));
     } else if (_message.isFileType) {
       var file = widget.message.fileElem;
       if (file != null) {
         final mimeType = CommonUtil.getMediaType(file.fileName!);
         if (mimeType != null && mimeType.startsWith('image/')) {
-          child = _buildCommonItemView(
-              child: ChatFilePictureView(
+          child = ChatFilePictureView(
             isISend: _isISend,
             message: _message,
             sendProgressStream: widget.sendProgressSubject,
-          ));
+          );
         } else if (mimeType != null && mimeType.startsWith('audio/')) {
-          child = _buildCommonItemView(
-              child: ChatFileVideoView(
+          child = ChatFileVideoView(
             isISend: _isISend,
             message: _message,
             sendProgressStream: widget.sendProgressSubject,
-          ));
+          );
         } else {
-          child = _buildCommonItemView(
-              child: ChatFileView(
+          child = ChatFileView(
             msgId: widget.message.clientMsgID!,
             fileName: file.fileName!,
             bytes: file.fileSize ?? 0,
             width: 158.w,
             initProgress: 100,
             uploadStream: widget.sendProgressSubject,
-          ));
+          );
         }
       }
     } else if (_message.isCardType) {
       var data = widget.message.cardElem;
-      child = _buildCommonItemView(
-        isBubbleBg: false,
-        child: ChatCarteView(
-          name: data?.nickname ?? "",
-          url: data?.faceURL,
-        ),
+      child = ChatCarteView(
+        name: data?.nickname ?? "",
+        url: data?.faceURL,
       );
     } else if (_message.isLocationType) {
       var data = widget.message.locationElem;
-      child = _buildCommonItemView(
-        isBubbleBg: false,
-        child: ChatLocationView(
-          description: data!.description!,
-          latitude: data.latitude!,
-          longitude: data.longitude!,
-        ),
+      child = ChatLocationView(
+        description: data!.description!,
+        latitude: data.latitude!,
+        longitude: data.longitude!,
       );
     } else if (_message.isQuoteType) {
-      child = _buildCommonItemView(
-        child: ChatAtText(
-          text: widget.message.quoteElem?.text ?? '',
-          allAtMap: widget.allAtMap,
-          textStyle: widget.textStyle,
-          textScaleFactor: widget.textScaleFactor,
-          patterns: widget.patterns,
-        ),
+      child = ChatAtText(
+        text: widget.message.quoteElem?.text ?? '',
+        allAtMap: widget.allAtMap,
+        textStyle: widget.textStyle,
+        textScaleFactor: widget.textScaleFactor,
+        patterns: widget.patterns,
       );
     } else if (_message.isMergerType) {
-      child = _buildCommonItemView(
-        child: ChatMergeMsgView(
-          title: widget.message.mergeElem?.title ?? '',
-          summaryList: widget.message.mergeElem?.abstractList ?? [],
-        ),
+      child = ChatMergeMsgView(
+        title: widget.message.mergeElem?.title ?? '',
+        summaryList: widget.message.mergeElem?.abstractList ?? [],
       );
     } else if (_message.isCustomFaceType) {
       var face = widget.message.faceElem;
-      child = _buildCommonItemView(
-        isBubbleBg: false,
-        child: ChatCustomEmojiView(
-          index: face?.index,
-          data: face?.data,
-          widgetWidth: 100.w,
-        ),
+      child = ChatCustomEmojiView(
+        index: face?.index,
+        data: face?.data,
+        widgetWidth: 100.w,
       );
     } else if (_message.isCustomType) {
       final info = widget.customTypeBuilder?.call(context, _message);
@@ -630,7 +625,6 @@ class _ChatItemViewState extends State<ChatItemView> {
 
         isBubbleBg = info.needBubbleBackground;
         child = info.customView;
-
         if (!info.needChatItemContainer) {
           return child;
         }
@@ -681,56 +675,56 @@ class _ChatItemViewState extends State<ChatItemView> {
     );
   }
 
-  Widget _buildCommonItemView({
-    required Widget child,
-    bool isBubbleBg = true,
-    bool isHintMsg = false,
-  }) =>
-      ChatSingleLayout(
-        msgId: widget.message.clientMsgID!,
-        index: widget.index,
-        menuBuilder: _menuBuilder,
-        haveUsableMenu: _haveUsableMenu,
-        clickSink: widget.clickSubject.sink,
-        sendStatusStream: widget.sendStatusSubject,
-        popupCtrl: _popupCtrl,
-        isReceivedMsg: !_isISend,
-        isSingleChat: widget.isSingleChat,
-        avatarSize: widget.avatarSize ?? 42.h,
-        // rightAvatar: widget.rightFaceUrl ?? OpenIM.iMManager.userInfo.faceURL,
-        // leftAvatar: widget.leftFaceUrl ?? widget.message.senderFaceUrl,
-        leftName: widget.leftNickname ?? widget.message.senderNickname ?? '',
-        isUnread: !widget.message.isRead!,
-        // leftBubbleColor: widget.leftBubbleColor,
-        // rightBubbleColor: widget.rightBubbleColor,
-        onLongPressRightAvatar: widget.onLongPressRightAvatar,
-        onTapRightAvatar: widget.onTapRightAvatar,
-        onLongPressLeftAvatar: widget.onLongPressLeftAvatar,
-        onTapLeftAvatar: widget.onTapLeftAvatar,
-        isSendFailed: widget.message.status == MessageStatus.failed,
-        isSending: widget.message.status == MessageStatus.sending,
-        timeView: widget.timeStr == null ? null : _buildTimeView(),
-        isBubbleBg: isBubbleBg,
-        isHintMsg: isHintMsg,
-        // quoteView: _quoteView,
-        showRadio: widget.multiSelMode,
-        checked: _checked,
-        onRadioChanged: widget.onMultiSelChanged,
-        delaySendingStatus: widget.delaySendingStatus,
-        enabledReadStatus: widget.enabledReadStatus,
-        isPrivateChat: widget.isPrivateChat,
-        onStartDestroy: widget.onDestroyMessage,
-        readingDuration: widget.readingDuration,
-        needReadCount: _needReadCount,
-        haveReadCount: _haveReadCount,
-        viewMessageReadStatus: widget.onViewMessageReadStatus,
-        failedResend: widget.onFailedToResend,
-        // customLeftAvatarBuilder: widget.customLeftAvatarBuilder,
-        // customRightAvatarBuilder: widget.customRightAvatarBuilder,
-        showLongPressMenu: widget.showLongPressMenu,
-        isVoiceMessage: widget.message.contentType == MessageType.voice,
-        child: child,
-      );
+  // Widget _buildCommonItemView({
+  //   required Widget child,
+  //   bool isBubbleBg = true,
+  //   bool isHintMsg = false,
+  // }) =>
+  //     ChatSingleLayout(
+  //       msgId: widget.message.clientMsgID!,
+  //       index: widget.index,
+  //       menuBuilder: _menuBuilder,
+  //       haveUsableMenu: _haveUsableMenu,
+  //       clickSink: widget.clickSubject.sink,
+  //       sendStatusStream: widget.sendStatusSubject,
+  //       popupCtrl: _popupCtrl,
+  //       isReceivedMsg: !_isISend,
+  //       isSingleChat: widget.isSingleChat,
+  //       avatarSize: widget.avatarSize ?? 42.h,
+  //       // rightAvatar: widget.rightFaceUrl ?? OpenIM.iMManager.userInfo.faceURL,
+  //       // leftAvatar: widget.leftFaceUrl ?? widget.message.senderFaceUrl,
+  //       leftName: widget.leftNickname ?? widget.message.senderNickname ?? '',
+  //       isUnread: !widget.message.isRead!,
+  //       // leftBubbleColor: widget.leftBubbleColor,
+  //       // rightBubbleColor: widget.rightBubbleColor,
+  //       onLongPressRightAvatar: widget.onLongPressRightAvatar,
+  //       onTapRightAvatar: widget.onTapRightAvatar,
+  //       onLongPressLeftAvatar: widget.onLongPressLeftAvatar,
+  //       onTapLeftAvatar: widget.onTapLeftAvatar,
+  //       isSendFailed: widget.message.status == MessageStatus.failed,
+  //       isSending: widget.message.status == MessageStatus.sending,
+  //       timeView: widget.timeStr == null ? null : _buildTimeView(),
+  //       isBubbleBg: isBubbleBg,
+  //       isHintMsg: isHintMsg,
+  //       // quoteView: _quoteView,
+  //       showRadio: widget.multiSelMode,
+  //       checked: _checked,
+  //       onRadioChanged: widget.onMultiSelChanged,
+  //       delaySendingStatus: widget.delaySendingStatus,
+  //       enabledReadStatus: widget.enabledReadStatus,
+  //       isPrivateChat: widget.isPrivateChat,
+  //       onStartDestroy: widget.onDestroyMessage,
+  //       readingDuration: widget.readingDuration,
+  //       needReadCount: _needReadCount,
+  //       haveReadCount: _haveReadCount,
+  //       viewMessageReadStatus: widget.onViewMessageReadStatus,
+  //       failedResend: widget.onFailedToResend,
+  //       // customLeftAvatarBuilder: widget.customLeftAvatarBuilder,
+  //       // customRightAvatarBuilder: widget.customRightAvatarBuilder,
+  //       showLongPressMenu: widget.showLongPressMenu,
+  //       isVoiceMessage: widget.message.contentType == MessageType.voice,
+  //       child: child,
+  //     );
 
   Widget _menuBuilder() => ChatLongPressMenu(
         controller: _popupCtrl,

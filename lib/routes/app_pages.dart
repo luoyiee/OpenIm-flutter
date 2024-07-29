@@ -82,6 +82,8 @@ import '../pages/contacts/user_profile_panel/set_remark/set_remark_view.dart';
 import '../pages/contacts/user_profile_panel/user_profile _panel_binding.dart';
 import '../pages/contacts/user_profile_panel/user_profile _panel_view.dart';
 import '../pages/forget_password/forget_password_binding.dart';
+import '../pages/global_search/global_search_binding.dart';
+import '../pages/global_search/global_search_view.dart';
 import '../pages/home/home_binding.dart';
 import '../pages/home/home_view.dart';
 import '../pages/login/login_binding.dart';
@@ -422,6 +424,12 @@ class AppPages {
       name: AppRoutes.FORGET_PASSWORD,
       page: () => ForgetPasswordPage(),
       binding: ForgetPasswordBinding(),
+    ),
+
+    _pageBuilder(
+      name: AppRoutes.globalSearch,
+      page: () => GlobalSearchPage(),
+      binding: GlobalSearchBinding(),
     ),
   ];
 }

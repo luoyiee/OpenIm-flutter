@@ -29,7 +29,8 @@ class ContactsPage extends StatelessWidget {
               ),
               _buildItemView(
                 assetsName: ImageRes.newGroup,
-                label: StrRes.newGroup,
+                // label: StrRes.newGroup,
+                label: '群通知',
                 count: logic.groupApplicationCount,
                 onTap: logic.newGroup,
               ),

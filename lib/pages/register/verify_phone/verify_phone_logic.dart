@@ -11,11 +11,13 @@ class VerifyPhoneLogic extends GetxController {
   final codeErrorCtrl = StreamController<ErrorAnimationType>();
   final codeEditCtrl = TextEditingController();
   final enabled = false.obs;
-  late String phoneNumber;
-  late String email;
-  late String areaCode;
+  String? phoneNumber;
+  String? email;
+  String? areaCode;
   late int usedFor;
   String? invitationCode;
+
+  bool get isPhoneRegister => null != phoneNumber;
 
   @override
   void onInit() {
@@ -69,6 +71,7 @@ class VerifyPhoneLogic extends GetxController {
       AppNavigator.startSetPassword(
         areaCode: areaCode,
         phoneNumber: phoneNumber,
+        email: email,
         verificationCode: value,
         usedFor: usedFor,
         invitationCode: invitationCode,

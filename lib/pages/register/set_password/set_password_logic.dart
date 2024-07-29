@@ -13,11 +13,17 @@ class SetPasswordLogic extends GetxController {
   final pwdCtrl = TextEditingController();
   final pwdAgainCtrl = TextEditingController();
   final enabled = false.obs;
-  late String phoneNumber;
-  late String areaCode;
+  String? phoneNumber;
+  String? email;
+  String? areaCode;
   late int usedFor;
   late String verificationCode;
   String? invitationCode;
+
+  // var isPhoneWay = true.obs;
+  bool get isPhoneWay => null != phoneNumber;
+
+  bool get isUsedForRegister => usedFor == 1;
 
   @override
   void onClose() {
@@ -30,6 +36,7 @@ class SetPasswordLogic extends GetxController {
   @override
   void onInit() {
     phoneNumber = Get.arguments['phoneNumber'];
+    email = Get.arguments['email'];
     areaCode = Get.arguments['areaCode'];
     usedFor = Get.arguments['usedFor'];
     verificationCode = Get.arguments['verificationCode'];
@@ -41,13 +48,21 @@ class SetPasswordLogic extends GetxController {
   }
 
   _onChanged() {
-    enabled.value = nicknameCtrl.text.trim().isNotEmpty &&
-        pwdCtrl.text.trim().isNotEmpty &&
-        pwdAgainCtrl.text.trim().isNotEmpty;
+    ///注册
+    if (usedFor == 1) {
+      enabled.value = nicknameCtrl.text.trim().isNotEmpty &&
+          pwdCtrl.text.trim().isNotEmpty &&
+          pwdAgainCtrl.text.trim().isNotEmpty;
+
+      ///修改密码
+    } else {
+      enabled.value =
+          pwdCtrl.text.trim().isNotEmpty && pwdAgainCtrl.text.trim().isNotEmpty;
+    }
   }
 
   bool _checkingInput() {
-    if (nicknameCtrl.text.trim().isEmpty) {
+    if (usedFor == 1 && nicknameCtrl.text.trim().isEmpty) {
       IMViews.showToast(StrRes.plsEnterYourNickname);
       return false;
     }
@@ -63,7 +78,23 @@ class SetPasswordLogic extends GetxController {
 
   void nextStep() {
     if (_checkingInput()) {
-      register();
+      if (usedFor == 1) {
+        // 设置密码/注册
+        register();
+      } else if (usedFor == 2) {
+        //重置密码,使用ip报错
+        LoadingView.singleton.wrap(asyncFunction: () async {
+          await Apis.resetPassword(
+            areaCode: areaCode,
+            phoneNumber: phoneNumber,
+            email: email,
+            password: pwdCtrl.text,
+            verificationCode: verificationCode,
+          ).then((value) {
+            AppNavigator.startBackLogin();
+          });
+        });
+      }
     }
   }
 
@@ -73,7 +104,7 @@ class SetPasswordLogic extends GetxController {
         nickname: nicknameCtrl.text.trim(),
         areaCode: areaCode,
         phoneNumber: phoneNumber,
-        email: null,
+        email: email,
         password: pwdCtrl.text,
         verificationCode: verificationCode,
         invitationCode: invitationCode,

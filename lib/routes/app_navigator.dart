@@ -364,6 +364,26 @@ class AppNavigator {
   static startRegister(String way) =>
       Get.toNamed(AppRoutes.register, arguments: {'registerWay': way});
 
+
+  static void startRegisterSetupSelfInfo(
+      {String? phoneNumber,
+        String? areaCode,
+        String? email,
+        required String verifyCode,
+        required String password,
+        String? invitationCode}) {
+    Get.toNamed(AppRoutes.REGISTER_SETUP_SELF_INFO, arguments: {
+      'phoneNumber': phoneNumber,
+      'areaCode': areaCode,
+      'email': email,
+      'verifyCode': verifyCode,
+      'password': password,
+      'invitationCode': invitationCode
+    });
+  }
+
+
+
   static void startRegisterVerifyPhoneOrEmail({
     String? phoneNumber,
     String? areaCode,
@@ -380,8 +400,9 @@ class AppNavigator {
       });
 
   static void startSetPassword({
-    required String phoneNumber,
-    required String areaCode,
+ String? phoneNumber,
+    String? email,
+     String? areaCode,
     required int usedFor,
     required String verificationCode,
     String? invitationCode,
@@ -389,11 +410,13 @@ class AppNavigator {
       Get.toNamed(AppRoutes.setPassword, arguments: {
         'phoneNumber': phoneNumber,
         'areaCode': areaCode,
+        'email': email,
         'usedFor': usedFor,
         'verificationCode': verificationCode,
         'invitationCode': invitationCode
       });
 
+  /// [usedFor] 1：注册，2：重置密码
   static void startSetSelfInfo({
     required String phoneNumber,
     required String areaCode,
@@ -520,4 +543,5 @@ class AppNavigator {
     Get.toNamed(AppRoutes.FORGET_PASSWORD,
         arguments: {"accountType": accountType});
   }
+
 }

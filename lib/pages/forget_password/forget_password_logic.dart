@@ -7,31 +7,31 @@ import '../../routes/app_navigator.dart';
 class ForgetPasswordLogic extends GetxController {
   var controller = TextEditingController();
   var showClearBtn = false.obs;
-  var isPhoneRegister = true;
+  var isPhoneRegister = true.obs;
   var areaCode = "+86".obs;
   var enabled = false.obs;
 
   void nextStep() async {
-    if (isPhoneRegister &&
+    if (isPhoneRegister.value &&
         !IMUtils.isMobile(areaCode.value, controller.text)) {
       IMViews.showToast('请输入正确的手机号');
       return;
     }
-    if (!isPhoneRegister && !GetUtils.isEmail(controller.text)) {
+    if (!isPhoneRegister.value && !GetUtils.isEmail(controller.text)) {
       IMViews.showToast('请输入正确的邮箱');
       return;
     }
     final success = await Apis.requestVerificationCode(
       areaCode: areaCode.value,
-      phoneNumber: isPhoneRegister ? controller.text : null,
-      email: !isPhoneRegister ? controller.text : null,
+      phoneNumber: isPhoneRegister.value ? controller.text : null,
+      email: !isPhoneRegister.value ? controller.text : null,
       usedFor: 2,
     );
     if (success) {
       AppNavigator.startRegisterVerifyPhoneOrEmail(
-        areaCode: areaCode.value,
-        phoneNumber: isPhoneRegister ? controller.text : null,
-        email: !isPhoneRegister ? controller.text : null,
+        areaCode: isPhoneRegister.value ? areaCode.value : "",
+        phoneNumber: isPhoneRegister.value ? controller.text : null,
+        email: !isPhoneRegister.value ? controller.text : null,
         usedFor: 2,
       );
     }
@@ -54,7 +54,7 @@ class ForgetPasswordLogic extends GetxController {
 
   @override
   void onInit() {
-    isPhoneRegister = Get.arguments['accountType'] == "phone";
+    isPhoneRegister.value = Get.arguments['accountType'] == "phone";
     super.onInit();
   }
 

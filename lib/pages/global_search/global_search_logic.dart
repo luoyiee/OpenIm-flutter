@@ -14,6 +14,7 @@ class GlobalSearchLogic extends CommonSearchLogic {
   final fileMessageRefreshCtrl = RefreshController();
   final contactsList = <UserInfo>[].obs;
   final groupList = <GroupInfo>[].obs;
+  final refreshController = RefreshController();
   final textSearchResultItems = <SearchResultItems>[].obs;
 
   final fileMessageList = <Message>[].obs;
@@ -42,8 +43,34 @@ class GlobalSearchLogic extends CommonSearchLogic {
     fileMessageList.clear();
   }
 
-  bool get isSearchNotResult =>
-      searchKey.isNotEmpty && contactsList.isEmpty && groupList.isEmpty && textSearchResultItems.isEmpty && fileMessageList.isEmpty;
+  // bool get isSearchNotResult =>
+  //     searchKey.isNotEmpty &&
+  //     contactsList.isEmpty &&
+  //     groupList.isEmpty &&
+  //     textSearchResultItems.isEmpty &&
+  //     fileMessageList.isEmpty;
+
+  bool isSearchEmpty() {
+    if (index.value == 0) {
+      return searchKey.isNotEmpty &&
+          // deptMemberList.isEmpty &&
+          contactsList.isEmpty &&
+          groupList.isEmpty &&
+          textSearchResultItems.isEmpty &&
+          fileMessageList.isEmpty;
+    } else if (index.value == 1) {
+      return searchKey.isNotEmpty &&
+          // deptMemberList.isEmpty &&
+          contactsList.isEmpty;
+    } else if (index.value == 2) {
+      return searchKey.isNotEmpty && groupList.isEmpty;
+    } else if (index.value == 3) {
+      return searchKey.isNotEmpty && textSearchResultItems.isEmpty;
+    } else if (index.value == 4) {
+      return searchKey.isNotEmpty && fileMessageList.isEmpty;
+    }
+    return false;
+  }
 
   search() async {
     final result = await LoadingView.singleton.wrap(
@@ -59,15 +86,15 @@ class GlobalSearchLogic extends CommonSearchLogic {
                 count: count,
               ),
             ]));
-    final friendList = (result[0] as List<FriendInfo>).map((e) => UserInfo(userID: e.userID, nickname: e.nickname, faceURL: e.faceURL));
+    final friendList = (result[0] as List<FriendInfo>).map((e) =>
+        UserInfo(userID: e.userID, nickname: e.nickname, faceURL: e.faceURL));
     final gList = result[1] as List<GroupInfo>;
     final textMessageResult = (result[2] as SearchResult).searchResultItems;
     final fileMessageResult = (result[3] as SearchResult).searchResultItems;
 
     clearList();
 
-    contactsList
-        .addAll(friendList);
+    contactsList.addAll(friendList);
     groupList.assignAll(gList);
     textSearchResultItems.assignAll(textMessageResult ?? []);
     fileMessageList.clear();
@@ -89,7 +116,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   void loadTextMessage() async {
-    final result = await searchTextMessage(pageIndex: ++textMessagePageIndex, count: count);
+    final result = await searchTextMessage(
+        pageIndex: ++textMessagePageIndex, count: count);
     final textMessageResult = result.searchResultItems;
     textSearchResultItems.addAll(textMessageResult ?? []);
     if ((textMessageResult ?? []).length < count) {
@@ -100,7 +128,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
   }
 
   void loadFileMessage() async {
-    final result = await searchFileMessage(pageIndex: ++fileMessagePageIndex, count: count);
+    final result = await searchFileMessage(
+        pageIndex: ++fileMessagePageIndex, count: count);
     final fileMessageResult = result.searchResultItems;
     if (null != fileMessageResult && fileMessageResult.isNotEmpty) {
       for (var element in fileMessageResult) {
@@ -114,7 +143,8 @@ class GlobalSearchLogic extends CommonSearchLogic {
     }
   }
 
-  List<T> subList<T>(List<T> list) => list.sublist(0, list.length > 2 ? 2 : list.length).toList();
+  List<T> subList<T>(List<T> list) =>
+      list.sublist(0, list.length > 2 ? 2 : list.length).toList();
 
   String calContent(Message message) => IMUtils.calContent(
         content: IMUtils.parseMsg(message, replaceIdToNickname: true),
@@ -155,6 +185,23 @@ class GlobalSearchLogic extends CommonSearchLogic {
       );
     }
   }
+
+  void previewFile(Message message) {
+    IMUtils.openFile(message);
+  }
+
+  bool get showMoreFriends => contactsList.length > 3;
+
+  // contactsList.length > 3 || deptMemberList.length > 3;
+
+  // bool get showMoreDeptMember =>
+  //     contactsList.isEmpty && deptMemberList.length > 3;
+
+  bool get showMoreGroup => groupList.length > 3;
+
+  bool get showMoreMessage => textSearchResultItems.length > 3;
+
+  bool get showMoreFile => fileMessageList.length > 3;
 }
 
 abstract class CommonSearchLogic extends GetxController {
@@ -184,14 +231,22 @@ abstract class CommonSearchLogic extends GetxController {
 
   String get searchKey => searchCtrl.text.trim();
 
-  Future<List<FriendInfo>> searchFriend() => OpenIM.iMManager.friendshipManager.searchFriends(keywordList: [searchCtrl.text.trim()]);
+  Future<List<FriendInfo>> searchFriend() =>
+      OpenIM.iMManager.friendshipManager.searchFriends(
+        keywordList: [searchCtrl.text.trim()],
+        isSearchNickname: true,
+        isSearchRemark: true,
+      );
+
   // Plan B: query data from chat server.
   // Future<List<FriendInfo>> searchFriend() =>
   //     Apis.searchFriendInfo(searchCtrl.text.trim()).then((list) => list.map((e) => FriendInfo.fromJson(e.toJson())).toList());
 
-
   Future<List<GroupInfo>> searchGroup() =>
-      OpenIM.iMManager.groupManager.searchGroups(keywordList: [searchCtrl.text.trim()], isSearchGroupName: true, isSearchGroupID: true);
+      OpenIM.iMManager.groupManager.searchGroups(
+          keywordList: [searchCtrl.text.trim()],
+          isSearchGroupName: true,
+          isSearchGroupID: true);
 
   Future<SearchResult> searchTextMessage({
     int pageIndex = 1,

@@ -4,9 +4,11 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:openim_common/openim_common.dart';
 
 class Apis {
-  static Options get imTokenOptions => Options(headers: {'token': DataSp.imToken});
+  static Options get imTokenOptions =>
+      Options(headers: {'token': DataSp.imToken});
 
-  static Options get chatTokenOptions => Options(headers: {'token': DataSp.chatToken});
+  static Options get chatTokenOptions =>
+      Options(headers: {'token': DataSp.chatToken});
 
   static Options _tokenOptions() {
     return Options(headers: {'token': DataSp.getLoginCertificate()!.imToken});
@@ -84,7 +86,7 @@ class Apis {
       data: {
         "areaCode": areaCode,
         'phoneNumber': phoneNumber,
-        'email': email,
+        'email': email ?? '',
         'password': IMUtils.generateMD5(password),
         'verifyCode': verificationCode,
         'platform': IMUtils.getPlatform(),
@@ -177,7 +179,9 @@ class Apis {
       options: chatTokenOptions,
     );
     if (data['users'] is List) {
-      return (data['users'] as List).map((e) => FriendInfo.fromJson(e)).toList();
+      return (data['users'] as List)
+          .map((e) => FriendInfo.fromJson(e))
+          .toList();
     }
     return [];
   }
@@ -197,7 +201,9 @@ class Apis {
       options: chatTokenOptions,
     );
     if (data['users'] is List) {
-      return (data['users'] as List).map((e) => UserFullInfo.fromJson(e)).toList();
+      return (data['users'] as List)
+          .map((e) => UserFullInfo.fromJson(e))
+          .toList();
     }
     return null;
   }
@@ -216,7 +222,9 @@ class Apis {
       options: chatTokenOptions,
     );
     if (data['users'] is List) {
-      return (data['users'] as List).map((e) => UserFullInfo.fromJson(e)).toList();
+      return (data['users'] as List)
+          .map((e) => UserFullInfo.fromJson(e))
+          .toList();
     }
     return null;
   }
@@ -249,7 +257,13 @@ class Apis {
   }) async {
     return HttpUtil.post(
       Urls.getVerificationCode,
-      data: {"areaCode": areaCode, "phoneNumber": phoneNumber, "email": email, 'usedFor': usedFor, 'invitationCode': invitationCode},
+      data: {
+        "areaCode": areaCode,
+        "phoneNumber": phoneNumber,
+        "email": email,
+        'usedFor': usedFor,
+        'invitationCode': invitationCode
+      },
     ).then((value) {
       IMViews.showToast(StrRes.sentSuccessfully);
       return true;
@@ -259,7 +273,8 @@ class Apis {
     });
   }
 
-  static Future<SignalingCertificate> getTokenForRTC(String roomID, String userID) async {
+  static Future<SignalingCertificate> getTokenForRTC(
+      String roomID, String userID) async {
     return HttpUtil.post(
       Urls.getTokenForRTC,
       data: {

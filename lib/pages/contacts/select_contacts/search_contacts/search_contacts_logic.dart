@@ -24,7 +24,6 @@ class SelectContactsFromSearchLogic extends CommonSearchLogic {
               if (!selectContactsLogic.hiddenGroup) searchGroup(),
             ]));
     final friendList = result[0] as List<FriendInfo>;
-    // final deptMemberList = result[1] as List<DeptMemberInfo>;
     clearList();
     resultList
         // ..assignAll(deptMemberList)

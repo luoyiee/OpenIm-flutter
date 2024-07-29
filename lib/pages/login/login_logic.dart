@@ -151,8 +151,9 @@ class LoginLogic extends GetxController {
   void registerNow(int index) =>
       AppNavigator.startRegister(index == 0 ? 'email' : 'phone');
 
-  void forgetPassword() {
-    AppNavigator.startForgetPassword();
+  void forgetPassword(int index) {
+    AppNavigator.startForgetPassword(
+        accountType: index == 0 ? 'email' : 'phone');
   }
 
   @override

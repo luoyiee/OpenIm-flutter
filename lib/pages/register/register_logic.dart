@@ -58,7 +58,8 @@ class RegisterLogic extends GetxController {
 
   Future<bool> requestVerificationCode() => Apis.requestVerificationCode(
         areaCode: areaCode.value,
-        phoneNumber: phoneCtrl.text.trim(),
+        phoneNumber: isPhoneRegister.value ? phoneCtrl.text.trim() : null,
+        email: !isPhoneRegister.value ? emailCtrl.text.trim() : null,
         usedFor: 1,
         invitationCode: invitationCode,
       );
@@ -69,7 +70,8 @@ class RegisterLogic extends GetxController {
     //   return;
     // }
 
-    if (isPhoneRegister.value && !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
+    if (isPhoneRegister.value &&
+        !IMUtils.isMobile(areaCode.value, phoneCtrl.text)) {
       IMViews.showToast(StrRes.plsEnterRightPhone);
       return;
     }

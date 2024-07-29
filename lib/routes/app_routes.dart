@@ -86,6 +86,7 @@ abstract class AppRoutes {
   static const LANGUAGE_SETUP = "/language_setup";
   static const REGISTER_VERIFY_PHONE = '/register_verify_phone';
   static const FORGET_PASSWORD = "/forget_password";
+  static const REGISTER_SETUP_SELF_INFO = '/register_setup_selfinfo';
 }
 
 extension RoutesExtension on String {

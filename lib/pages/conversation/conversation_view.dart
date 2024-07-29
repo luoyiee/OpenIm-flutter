@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,17 +11,21 @@ import 'package:rotated_corner_decoration/rotated_corner_decoration.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:sprintf/sprintf.dart';
 
+import '../../core/im_callback.dart';
+import '../home/home_logic.dart';
 import 'conversation_logic.dart';
 
 class ConversationPage extends StatelessWidget {
   final logic = Get.find<ConversationLogic>();
   final im = Get.find<IMController>();
+  final homeLogic = Get.find<HomeLogic>();
 
   ConversationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Obx(() =>
+        Scaffold(
           backgroundColor: Styles.c_F8F9FA,
           appBar: TitleBar.conversation(
               statusStr: logic.imSdkStatus,
@@ -53,14 +58,25 @@ class ConversationPage extends StatelessWidget {
                     if (null != logic.imSdkStatus)
                       Flexible(
                           child: SyncStatusView(
-                        isFailed: logic.isFailedSdkStatus,
-                        statusStr: logic.imSdkStatus!,
-                      )),
+                            isFailed: logic.isFailedSdkStatus,
+                            statusStr: logic.imSdkStatus!,
+                          )),
                   ],
                 ),
               )),
           body: Column(
             children: [
+
+              _buildConnectivityView(),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: logic.globalSearch,
+                child: SearchBox(
+                  enabled: false,
+                  margin: EdgeInsets.fromLTRB(22.w, 11.h, 22.w, 5.h),
+                  padding: EdgeInsets.symmetric(horizontal: 13.w),
+                ),
+              ),
               Expanded(
                 child: SlidableAutoCloseBehavior(
                   child: SmartRefresher(
@@ -74,14 +90,15 @@ class ConversationPage extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: logic.list.length,
                       controller: logic.scrollController,
-                      itemBuilder: (_, index) => AutoScrollTag(
-                        key: ValueKey(index),
-                        controller: logic.scrollController,
-                        index: index,
-                        child: _buildConversationItemView(
-                          logic.list.elementAt(index),
-                        ),
-                      ),
+                      itemBuilder: (_, index) =>
+                          AutoScrollTag(
+                            key: ValueKey(index),
+                            controller: logic.scrollController,
+                            index: index,
+                            child: _buildConversationItemView(
+                              logic.list.elementAt(index),
+                            ),
+                          ),
                     ),
                   ),
                 ),
@@ -91,17 +108,22 @@ class ConversationPage extends StatelessWidget {
         ));
   }
 
-  Widget _buildConversationItemView(ConversationInfo info) => Slidable(
+  Widget _buildConversationItemView(ConversationInfo info) =>
+      Slidable(
         endActionPane: ActionPane(
           motion: const ScrollMotion(),
-          extentRatio: logic.existUnreadMsg(info) ? 0.7 : (logic.isPinned(info) ? 0.5 : 0.4),
+          extentRatio: logic.existUnreadMsg(info) ? 0.7 : (logic.isPinned(info)
+              ? 0.5
+              : 0.4),
           children: [
             CustomSlidableAction(
               onPressed: (_) => logic.pinConversation(info),
               flex: logic.isPinned(info) ? 3 : 2,
               backgroundColor: Styles.c_0089FF,
               padding: const EdgeInsets.all(1),
-              child: (logic.isPinned(info) ? StrRes.cancelTop : StrRes.top).toText..style = Styles.ts_FFFFFF_14sp,
+              child: (logic.isPinned(info) ? StrRes.cancelTop : StrRes.top)
+                  .toText
+                ..style = Styles.ts_FFFFFF_14sp,
             ),
             if (logic.existUnreadMsg(info))
               CustomSlidableAction(
@@ -125,7 +147,8 @@ class ConversationPage extends StatelessWidget {
         child: _buildItemView(info),
       );
 
-  Widget _buildItemView(ConversationInfo info) => Ink(
+  Widget _buildItemView(ConversationInfo info) =>
+      Ink(
         child: InkWell(
           onTap: () => logic.toChat(conversationInfo: info),
           child: Stack(
@@ -152,13 +175,18 @@ class ConversationPage extends StatelessWidget {
                             children: [
                               ConstrainedBox(
                                 constraints: BoxConstraints(maxWidth: 180.w),
-                                child: logic.getShowName(info).toText
+                                child: logic
+                                    .getShowName(info)
+                                    .toText
                                   ..style = Styles.ts_0C1C33_17sp
                                   ..maxLines = 1
                                   ..overflow = TextOverflow.ellipsis,
                               ),
                               const Spacer(),
-                              logic.getTime(info).toText..style = Styles.ts_8E9AB0_12sp,
+                              logic
+                                  .getTime(info)
+                                  .toText
+                                ..style = Styles.ts_8E9AB0_12sp,
                             ],
                           ),
                           3.verticalSpace,
@@ -171,9 +199,11 @@ class ConversationPage extends StatelessWidget {
                                 prefixSpan: TextSpan(
                                   text: '',
                                   children: [
-                                    if (logic.isNotDisturb(info) && logic.getUnreadCount(info) > 0)
+                                    if (logic.isNotDisturb(info) &&
+                                        logic.getUnreadCount(info) > 0)
                                       TextSpan(
-                                        text: '[${sprintf(StrRes.nPieces, [logic.getUnreadCount(info)])}] ',
+                                        text: '[${sprintf(StrRes.nPieces,
+                                            [logic.getUnreadCount(info)])}] ',
                                         style: Styles.ts_8E9AB0_14sp,
                                       ),
                                     TextSpan(
@@ -197,7 +227,8 @@ class ConversationPage extends StatelessWidget {
                                   ..width = 13.63.w
                                   ..height = 14.07.h
                               else
-                                UnreadCountView(count: logic.getUnreadCount(info)),
+                                UnreadCountView(count: logic.getUnreadCount(
+                                    info)),
                             ],
                           ),
                         ],
@@ -219,4 +250,80 @@ class ConversationPage extends StatelessWidget {
           ),
         ),
       );
+
+
+  Widget _buildConnectivityView() {
+    // 提示view
+    Widget _buildTipsView(Widget icon, Widget tips, [Color? backgroundColor]) {
+      return Container(
+        height: 32.h,
+        color: backgroundColor ?? Colors.red.shade50,
+        margin: EdgeInsets.symmetric(horizontal: 21.w),
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
+        child: Row(
+          children: [
+            icon,
+            SizedBox(
+              width: 8.h,
+            ),
+            tips
+          ],
+        ),
+      );
+    }
+
+    Widget _buildSyncView() {
+      if (logic.imStatus.value == 2) {
+        return _buildTipsView(
+            CupertinoActivityIndicator(
+              color: Styles.c_2576FC,
+            ),
+            Text(
+              StrRes.synchronizing,
+              style: Styles.ts_2691ED_10sp,
+            ),
+            Colors.blue.shade50);
+      } else if (logic.imStatus.value == 4) {
+        return _buildTipsView(
+            Icon(
+              Icons.error,
+              color: Colors.red,
+            ),
+            Text(
+              StrRes.syncFailed,
+              style: Styles.ts_F44038_13sp,
+            ));
+      }
+
+      return Container();
+    }
+
+    Widget _buildConStatusView() {
+      return logic.imStatus.value != IMSdkStatus.connecting &&
+          logic.imStatus.value != IMSdkStatus.connectionFailed
+          ? _buildSyncView()
+          :
+      //只展示连接中和链接失败
+      logic.imStatus.value == IMSdkStatus.connecting
+          ? _buildTipsView(
+          CupertinoActivityIndicator(
+            color: Styles.c_2576FC,
+          ),
+          Text(
+            StrRes.connecting,
+            style: Styles.ts_2691ED_10sp,
+          ),
+          Colors.blue.shade50)
+          : _buildTipsView(
+          Icon(
+            Icons.error,
+            color: Colors.red,
+          ),
+          Text('连接失败...',
+            style: Styles.ts_F44038_13sp,
+          ));
+    }
+
+    return Obx(() => _buildConStatusView());
+  }
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
@@ -10,7 +8,8 @@ class SpeechToTextUtil {
 
   /// This has to happen only once per app
   initSpeech() async {
-    return _speechEnabled = await _speechToText.initialize();
+    return _speechEnabled = await _speechToText.initialize(
+        options: [SpeechToText.androidNoBluetooth]);
   }
 
   /// Each time to start a speech recognition session
@@ -38,8 +37,6 @@ class SpeechToTextUtil {
   //     );
   //   }
   // }
-
-
 
 
   /// Manually stop the active speech recognition session

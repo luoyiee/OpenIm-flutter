@@ -20,6 +20,8 @@ class Styles {
   static Color c_6085B1 = const Color(0xFF6085B1);
   static Color c_FFB300 = const Color(0xFFFFB300);
   static Color c_FFE1DD = const Color(0xFFFFE1DD);
+  static const c_EAEAEA = Color(0xFFEAEAEA);
+  static const c_2576FC = Color(0xFF2576FC);
   static const c_979797 = Color(0xFF979797);
   static const c_E8F2FF = Color(0xFFE8F2FF);
   static const c_F6F6F6 = Color(0xFFF6F6F6);
@@ -425,5 +427,45 @@ class Styles {
   static var ts_171A1D_17sp = TextStyle(
     fontSize: 17.sp,
     color: Color(0xFF171A1D),
+  );
+
+  static var ts_2691ED_10sp = TextStyle(
+    fontSize: 10.sp,
+    color: Color(0xFF2691ED),
+  );
+
+  static var ts_F44038_13sp = TextStyle(
+    fontSize: 13.sp,
+    color: Color(0xFFF44038),
+  );
+
+  static var ts_B0B0B0_14sp = TextStyle(
+    fontSize: 14.sp,
+    color: Color(0xFFB0B0B0),
+  );
+
+  static var ts_BABABA_16sp = TextStyle(
+    fontSize: 16.sp,
+    color: Color(0xFFBABABA),
+  );
+
+  static var ts_1B72EC_12sp = TextStyle(
+    fontSize: 12.sp,
+    color: Color(0xFF1B72EC),
+  );
+
+  static var ts_ADADAD_10sp = TextStyle(
+    fontSize: 10.sp,
+    color: Color(0xFFADADAD),
+  );
+
+  static var ts_ADADAD_12sp = TextStyle(
+    fontSize: 12.sp,
+    color: Color(0xFFADADAD),
+  );
+
+  static var ts_1B72EC_10sp = TextStyle(
+    fontSize: 10.sp,
+    color: Color(0xFF1B72EC),
   );
 }

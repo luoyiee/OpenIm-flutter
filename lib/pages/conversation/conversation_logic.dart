@@ -516,11 +516,6 @@ class ConversationLogic extends GetxController {
 
 
 
-
-
-
-
-
   scan() => AppNavigator.startScan();
 
   addFriend() => AppNavigator.startAddContactsBySearch(searchType: SearchType.user);
@@ -528,4 +523,8 @@ class ConversationLogic extends GetxController {
   createGroup() => AppNavigator.startCreateGroup(defaultCheckedList: [OpenIM.iMManager.userInfo]);
 
   addGroup() => AppNavigator.startAddContactsBySearch(searchType: SearchType.group);
+
+  void globalSearch() {
+    AppNavigator.startGlobalSearch();
+  }
 }

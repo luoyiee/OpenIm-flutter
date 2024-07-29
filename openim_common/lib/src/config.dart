@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 class Config {
   static Future init(Function() runApp) async {
@@ -35,7 +36,6 @@ class Config {
       statusBarBrightness: brightness,
       statusBarIconBrightness: brightness,
     ));
-
     // FlutterBugly.init(androidAppId: "4103e474e9", iOSAppId: "28849b1ca6");
   }
 

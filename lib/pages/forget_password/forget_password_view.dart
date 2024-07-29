@@ -29,7 +29,7 @@ class ForgetPasswordPage extends StatelessWidget {
                 ),
                 Container(
                     margin: EdgeInsets.only(left: 32.w, top: 44.h, right: 32.w),
-                    child: Obx(() => logic.isPhoneRegister
+                    child: Obx(() => logic.isPhoneRegister.value
                         ? InputBox.phone(
                             label: StrRes.phoneNumber,
                             hintText: StrRes.plsEnterPhoneNumber,

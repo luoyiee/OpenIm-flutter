@@ -159,7 +159,7 @@ class LoginPage extends StatelessWidget {
                 if (register) {
                   logic.registerNow(0);
                 } else {
-                  logic.forgetPassword();
+                  logic.forgetPassword(0);
                 }
               },
             ),
@@ -171,7 +171,7 @@ class LoginPage extends StatelessWidget {
                 if (register) {
                   logic.registerNow(1);
                 } else {
-                  logic.forgetPassword();
+                  logic.forgetPassword(1);
                 }
               },
             ),

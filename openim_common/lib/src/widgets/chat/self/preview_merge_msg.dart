@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,19 +39,26 @@ class PreviewMergeMsg extends StatelessWidget {
     switch (message.contentType) {
       case MessageType.text:
         {
-          text = message.textElem;
+          text = message.textElem?.content ?? "";
         }
         break;
       case MessageType.atText:
         {
           try {
-            // Map map = json.decode(message.atTextElem!);
-            // text = map['text'];
-            // var list = message.atTextElem!.atUsersInfo;
-            // list?.forEach((element) {
-            //   atMap[element.atUserID!] = element.groupNickname!;
-            // });
+            text = message.atTextElem?.text ?? "";
+            var list = message.atTextElem!.atUsersInfo;
+            list?.forEach((element) {
+              atMap[element.atUserID!] = element.groupNickname!;
+            });
           } catch (e) {}
+          // try {
+          //   // Map map = json.decode(message.atTextElem!);
+          //   // text = map['text'];
+          //   // var list = message.atTextElem!.atUsersInfo;
+          //   // list?.forEach((element) {
+          //   //   atMap[element.atUserID!] = element.groupNickname!;
+          //   // });
+          // } catch (e) {}
         }
         break;
       case MessageType.picture:
