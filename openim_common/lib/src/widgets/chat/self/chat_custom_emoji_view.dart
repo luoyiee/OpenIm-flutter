@@ -3,13 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import '../../../../openim_common.dart';
+import '../plus/my_logger.dart';
 
 class ChatCustomEmojiView extends StatelessWidget {
   const ChatCustomEmojiView({
     Key? key,
     this.index,
     this.data,
-    this.widgetWidth = 100,
+    // this.widgetWidth = 100,
+    this.heroTag,
+    required this.isISend,
   }) : super(key: key);
 
   /// 内置表情包，按位置显示
@@ -19,7 +22,9 @@ class ChatCustomEmojiView extends StatelessWidget {
   /// {"url:"", "width":0, "height":0 }
   final String? data;
 
-  final double widgetWidth;
+  // final double widgetWidth;
+  final bool isISend;
+  final String? heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +41,29 @@ class ChatCustomEmojiView extends StatelessWidget {
         if (h is int) {
           h = h.toDouble();
         }
-        var trulyWidth;
-        var trulyHeight;
-        if (widgetWidth < w) {
-          trulyWidth = widgetWidth;
+        double trulyWidth;
+        double trulyHeight;
+        if (pictureWidth < w) {
+          trulyWidth = pictureWidth;
           trulyHeight = trulyWidth * h / w;
         } else {
           trulyWidth = w;
           trulyHeight = h;
         }
 
-        return ImageUtil.networkImage(
-          url: url,
-          width: trulyWidth,
-          height: trulyHeight,
-          // cacheWidth: trulyWidth,
+        final child = ClipRRect(
+          borderRadius: borderRadius(isISend),
+          child: ImageUtil.networkImage(
+            url: url,
+            width: trulyWidth,
+            height: trulyHeight,
+            fit: BoxFit.fitWidth,
+          ),
         );
+        return null != heroTag ? Hero(tag: heroTag!, child: child) : child;
       }
-    } catch (e) {
-      print('e:$e');
+    } catch (e, s) {
+      myLogger.e({"error": e, "stack": s});
     }
     // 位置表情
     return Container();

@@ -104,7 +104,7 @@ abstract class SignalState<T extends SignalView> extends State<T> {
 
   ///  某些信令通过liveKit的监听
   _onStateDidUpdate(CallEvent event) {
-    Logger.print("CallEvent : 当前：$callState  收到：$event");
+    LoggerUtil.print("CallEvent : 当前：$callState  收到：$event");
     if (!mounted) return;
 
     // ui 状态只有 呼叫，被呼叫，通话中，连接中
@@ -159,14 +159,14 @@ abstract class SignalState<T extends SignalView> extends State<T> {
   }
 
   onTapPickup() async {
-    Logger.print('------------onTapPickup---------连接中--------');
+    LoggerUtil.print('------------onTapPickup---------连接中--------');
     callStateSubject.add(CallState.connecting);
     certificate = await widget.onTapPickup!.call();
     widget.onBindRoomID?.call(roomID = certificate.roomID!);
     await connect();
     callStateSubject.add(CallState.calling);
     widget.onStartCalling?.call();
-    Logger.print('------------onTapPickup---------连接成功--------');
+    LoggerUtil.print('------------onTapPickup---------连接成功--------');
   }
 
   /// [isPositive] 人为挂断行为

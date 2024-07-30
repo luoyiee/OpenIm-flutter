@@ -105,7 +105,7 @@ class _SingleRoomViewState extends SignalState<SingleRoomView> {
 
   void _setUpListeners() => _listener!
     ..on<RoomDisconnectedEvent>((event) async {
-      Logger.print('Room disconnected: reason => ${event.reason}');
+      LoggerUtil.print('Room disconnected: reason => ${event.reason}');
       WidgetsBindingCompatible.instance?.addPostFrameCallback((_) {
         widget.onRoomDisconnected?.call();
         widget.onClose?.call();
@@ -121,7 +121,7 @@ class _SingleRoomViewState extends SignalState<SingleRoomView> {
       try {
         decoded = utf8.decode(event.data);
       } catch (_) {
-        Logger.print('Failed to decode: $_');
+        LoggerUtil.print('Failed to decode: $_');
       }
     });
 
@@ -131,12 +131,12 @@ class _SingleRoomViewState extends SignalState<SingleRoomView> {
       final enabled = widget.callType == CallType.video;
       await _room?.localParticipant?.setCameraEnabled(enabled);
     } catch (error, stackTrace) {
-      Logger.print('could not publish video: $error $stackTrace');
+      LoggerUtil.print('could not publish video: $error $stackTrace');
     }
     try {
       await _room?.localParticipant?.setMicrophoneEnabled(enabledMicrophone);
     } catch (error, stackTrace) {
-      Logger.print('could not publish audio: $error $stackTrace');
+      LoggerUtil.print('could not publish audio: $error $stackTrace');
     }
   }
 

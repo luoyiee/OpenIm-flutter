@@ -28,57 +28,57 @@ class PushController extends GetxController {
 
     Getuiflut().addEventHandler(
       onReceiveClientId: (String message) async {
-        Logger.print("Getui flutter onReceiveClientId: $message");
+        LoggerUtil.print("Getui flutter onReceiveClientId: $message");
         _getClientId = "ClientId: $message";
       },
       onReceiveMessageData: (Map<String, dynamic> msg) async {
-        Logger.print("Getui flutter onReceiveMessageData: $msg");
+        LoggerUtil.print("Getui flutter onReceiveMessageData: $msg");
         _payloadInfo = msg['payload'];
       },
       onNotificationMessageArrived: (Map<String, dynamic> msg) async {
-        Logger.print("Getui flutter onNotificationMessageArrived: $msg");
+        LoggerUtil.print("Getui flutter onNotificationMessageArrived: $msg");
         _notificationState = 'Arrived';
       },
       onNotificationMessageClicked: (Map<String, dynamic> msg) async {
-        Logger.print("Getui flutter onNotificationMessageClicked: $msg");
+        LoggerUtil.print("Getui flutter onNotificationMessageClicked: $msg");
         _notificationState = 'Clicked';
       },
       onRegisterDeviceToken: (String message) async {
-        Logger.print("Getui flutter onRegisterDeviceToken: $message");
+        LoggerUtil.print("Getui flutter onRegisterDeviceToken: $message");
         _getDeviceToken = "$message";
       },
       onReceivePayload: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onReceivePayload: $message");
+        LoggerUtil.print("Getui flutter onReceivePayload: $message");
         _onReceivePayload = "$message";
       },
       onReceiveNotificationResponse: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onReceiveNotificationResponse: $message");
+        LoggerUtil.print("Getui flutter onReceiveNotificationResponse: $message");
         _onReceiveNotificationResponse = "$message";
       },
       onAppLinkPayload: (String message) async {
-        Logger.print("Getui flutter onAppLinkPayload: $message");
+        LoggerUtil.print("Getui flutter onAppLinkPayload: $message");
         _onAppLinkPayLoad = "$message";
       },
       onPushModeResult: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onPushModeResult: $message");
+        LoggerUtil.print("Getui flutter onPushModeResult: $message");
       },
       onSetTagResult: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onSetTagResult: $message");
+        LoggerUtil.print("Getui flutter onSetTagResult: $message");
       },
       onAliasResult: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onAliasResult: $message");
+        LoggerUtil.print("Getui flutter onAliasResult: $message");
       },
       onQueryTagResult: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onQueryTagResult: $message");
+        LoggerUtil.print("Getui flutter onQueryTagResult: $message");
       },
       onWillPresentNotification: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onWillPresentNotification: $message");
+        LoggerUtil.print("Getui flutter onWillPresentNotification: $message");
       },
       onOpenSettingsForNotification: (Map<String, dynamic> message) async {
-        Logger.print("Getui flutter onOpenSettingsForNotification: $message");
+        LoggerUtil.print("Getui flutter onOpenSettingsForNotification: $message");
       },
       onTransmitUserMessageReceive: (Map<String, dynamic> event) async {
-        Logger.print("Getui flutter onTransmitUserMessageReceive: $event");
+        LoggerUtil.print("Getui flutter onTransmitUserMessageReceive: $event");
       },
       onGrantAuthorization: (String res) async {},
     );
@@ -100,9 +100,9 @@ class PushController extends GetxController {
     String getClientId;
     try {
       getClientId = await Getuiflut.getClientId;
-      Logger.print(getClientId);
+      LoggerUtil.print(getClientId);
     } catch (e) {
-      Logger.print(e.toString());
+      LoggerUtil.print(e.toString());
     }
   }
 
@@ -144,7 +144,7 @@ class PushController extends GetxController {
     try {
       info = await Getuiflut.getLaunchNotification;
     } catch (e) {
-      Logger.print(e.toString());
+      LoggerUtil.print(e.toString());
     }
   }
 

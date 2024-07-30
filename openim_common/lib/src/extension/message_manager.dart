@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:openim_common/openim_common.dart';
 
+import '../widgets/chat/plus/my_logger.dart';
+
 extension MessageManagerExt on MessageManager {
   Future<Message> createCallMessage({
     required String type,
@@ -112,7 +114,7 @@ extension MessageExt on Message {
         final ntf = GroupNotification.fromJson(map);
         return IMUtils.isNotNullEmptyStr(ntf.group?.notification);
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
       }
     }
     return false;
@@ -126,12 +128,13 @@ extension MessageExt on Message {
         final ntf = GroupNotification.fromJson(map);
         return ntf.group?.notification;
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
       }
     }
     return null;
   }
 
+  /// 通话消息
   bool get isCallType {
     if (isCustomType) {
       try {
@@ -139,7 +142,21 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.call == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
+      }
+    }
+    return false;
+  }
+
+  /// 通话消息
+  bool get isWaitingAiReplayType {
+    if (isCustomType) {
+      try {
+        var map = json.decode(customElem!.data!);
+        var customType = map['customType'];
+        return CustomMessageType.waitingAiReplay == customType;
+      } catch (e, s) {
+        myLogger.e({"error": e, "stack": s});
       }
     }
     return false;
@@ -152,7 +169,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.meeting == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
       }
     }
     return false;
@@ -165,7 +182,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.deletedByFriend == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
       }
     }
     return false;
@@ -178,7 +195,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.blockedByFriend == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
       }
     }
     return false;
@@ -191,7 +208,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.emoji == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
       }
     }
     return false;
@@ -204,7 +221,7 @@ extension MessageExt on Message {
         var customType = map['customType'];
         return CustomMessageType.tag == customType;
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
       }
     }
     return false;
@@ -222,11 +239,14 @@ extension MessageExt on Message {
           }
         }
       } catch (e, s) {
-        Logger.print('$e $s');
+        LoggerUtil.print('$e $s');
       }
     }
     return null;
   }
+
+  /// 是否是阅后即焚消息
+  bool get isPrivateType => attachedInfoElem?.isPrivateChat == true;
 
   bool get isTextType => contentType == MessageType.text;
 
@@ -254,7 +274,12 @@ extension MessageExt on Message {
 
   bool get isRevokeType => contentType == MessageType.revokeMessageNotification;
 
+  /// 公告或其他通知以消息类型显示
   bool get isNotificationType => contentType! >= 1000;
+
+  bool get isTagTextType => isCustomType && tagContent?.textElem != null;
+
+  bool get isTagVoiceType => isCustomType && tagContent?.soundElem != null;
 }
 
 class CustomMessageType {
@@ -273,6 +298,9 @@ class CustomMessageType {
   static const deletedByFriend = 911;
   static const removedFromGroup = 912;
   static const groupDisbanded = 913;
+
+  static const textWithPrompt = 1001;
+  static const waitingAiReplay = 9001;
 }
 
 extension FullUserInfoExt on FullUserInfo {

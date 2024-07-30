@@ -54,7 +54,7 @@ class AppController extends GetxController with UpgradeManger {
   final clientConfigMap = <String, dynamic>{}.obs;
 
   Future<void> runningBackground(bool run) async {
-    Logger.print('-----App running background : $run-------------');
+    LoggerUtil.print('-----App running background : $run-------------');
 
     if (isRunningBackground && !run) {}
     isRunningBackground = run;

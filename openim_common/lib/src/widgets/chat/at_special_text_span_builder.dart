@@ -77,7 +77,7 @@ class AtSpecialTextSpanBuilder extends SpecialTextSpanBuilder {
             buffer.write(value);
           }
         } catch (e, s) {
-          Logger.print('error: $e  $s');
+          LoggerUtil.print('error: $e  $s');
         }
         children.add(inlineSpan);
         return "";

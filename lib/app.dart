@@ -45,7 +45,7 @@ class _ChatAppState extends State<ChatApp> with WidgetsBindingObserver {
         debugShowCheckedModeBanner: true,
         enableLog: true,
         builder: builder,
-        logWriterCallback: Logger.print,
+        logWriterCallback: LoggerUtil.print,
         translations: TranslationService(),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

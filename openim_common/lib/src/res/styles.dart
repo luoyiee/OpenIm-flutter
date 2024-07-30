@@ -4,7 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Styles {
   Styles._();
 
+  static Color c_8443F8 = const Color(0xFF8443F8); // 主题色
+  static Color c_333333 = const Color(0xFF333333); // 黑色字体
   static const c_F8F8F8 = Color(0xFFF8F8F8);
+  static Color c_EBEBEB = const Color(0xFFEBEBEB);
   static Color c_0089FF = const Color(0xFF0089FF);
   static Color c_0C1C33 = const Color(0xFF0C1C33);
   static Color c_8E9AB0 = const Color(0xFF8E9AB0);
@@ -20,6 +23,7 @@ class Styles {
   static Color c_6085B1 = const Color(0xFF6085B1);
   static Color c_FFB300 = const Color(0xFFFFB300);
   static Color c_FFE1DD = const Color(0xFFFFE1DD);
+  static Color c_EDEDED = const Color(0xFFEDEDED);
   static const c_EAEAEA = Color(0xFFEAEAEA);
   static const c_2576FC = Color(0xFF2576FC);
   static const c_979797 = Color(0xFF979797);
@@ -35,6 +39,9 @@ class Styles {
   static const c_D8D8D8 = Color(0xFFD8D8D8);
   static const c_F0F0F0 = Color(0xFFF0F0F0);
   static const c_A2A3A5 = Color(0xFFA2A3A5);
+  static Color c_07C160 = const Color(0xFF07C160);
+  static Color c_343434 = const Color(0xFF343434);
+  static Color c_FF4E4C = const Color(0xFFFF4E4C); // 警告色
 
   static Color c_92B3E0_opacity50 = c_92B3E0.withOpacity(.5);
   static Color c_E8EAEF_opacity50 = c_E8EAEF.withOpacity(.5);
@@ -63,8 +70,11 @@ class Styles {
   static Color c_000000_opacity15 = c_000000.withOpacity(.15);
   static Color c_000000_opacity12 = c_000000.withOpacity(.12);
   static Color c_000000_opacity4 = c_000000.withOpacity(.04);
+  static Color c_999999_opacity13 = c_999999.withOpacity(.13);
+  static Color c_333333_opacity85 = c_333333.withOpacity(.85);
   static var c_000000_opacity40p = Color(0xFF000000).withOpacity(0.4);
   static var c_000000_opacity10p = Color(0xFF000000).withOpacity(0.10);
+  static Color c_8443F8_opacity50 = c_8443F8.withOpacity(.5);
 
   static TextStyle ts_FFFFFF_21sp = TextStyle(
     color: c_FFFFFF,
@@ -468,4 +478,62 @@ class Styles {
     fontSize: 10.sp,
     color: Color(0xFF1B72EC),
   );
+
+  static TextStyle ts_8443F8_12sp = TextStyle(
+    color: c_8443F8,
+    fontSize: 12.sp,
+  ).merge(en400);
+
+  static TextStyle en400 = const TextStyle(
+      fontFamily: "HKGrotesk-400",
+      fontWeight: FontWeight.w400
+  );
+
+  static TextStyle en500 = const TextStyle(
+      fontFamily: "HKGrotesk-500",
+      fontWeight: FontWeight.w500
+  );
+
+  static TextStyle ts_8443F8_16sp = TextStyle(
+    color: c_8443F8,
+    fontSize: 16.sp,
+  ).merge(en400);
+
+  static TextStyle ts_FF4E4C_16sp = TextStyle(
+    color: c_FF4E4C,
+    fontSize: 16.sp,
+  ).merge(en400);
+
+  static TextStyle ts_333333_17sp = TextStyle(
+    color: c_333333,
+    fontSize: 17.sp,
+  ).merge(en400);
+
+  static TextStyle ts_333333_16sp_medium = TextStyle(
+    color: c_333333,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+  ).merge(en500);
+
+  static TextStyle ts_8443F8_14sp = TextStyle(
+    color: c_8443F8,
+    fontSize: 14.sp,
+  ).merge(en400);
+
+  static TextStyle ts_333333_17sp_medium = TextStyle(
+    color: c_333333,
+    fontSize: 17.sp,
+    fontWeight: FontWeight.w500,
+  ).merge(en500);
+
+  static TextStyle ts_8443F8_17sp = TextStyle(
+    color: c_8443F8,
+    fontSize: 17.sp,
+  ).merge(en400);
+
+  static TextStyle ts_343434_16p_medium = TextStyle(
+    color: c_343434,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+  ).merge(en500);
 }

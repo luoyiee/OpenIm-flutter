@@ -49,7 +49,7 @@ class LiveUtils {
 
   static VideoTrack? activeVideoTrack(RemoteParticipant participant) {
     for (final trackPublication in participant.videoTracks) {
-      Logger.print(
+      LoggerUtil.print(
           'video track ${trackPublication.sid} subscribed ${trackPublication.subscribed} muted ${trackPublication.muted}');
       if (trackPublication.subscribed && !trackPublication.muted) {
         return trackPublication.track;
@@ -61,7 +61,7 @@ class LiveUtils {
   /// 剔除房间观察者
   static List<RemoteParticipant> removeObserver(String roomID, Room room) {
     return room.participants.values.where((element) {
-      Logger.print(
+      LoggerUtil.print(
           'removeObserver roomID:$roomID  userID:${element.identity}   ${roomID == element.identity}');
       return roomID != element.identity;
     }).toList();
@@ -88,7 +88,7 @@ class LiveUtils {
     // var mediaType = invitation.mediaType;
     // var sessionType = invitation.sessionType;
     // var platformID = invitation.platformID;
-    Logger.print('${event.state}--当前房间：$roomID--信令来自：${invitation.roomID}');
+    LoggerUtil.print('${event.state}--当前房间：$roomID--信令来自：${invitation.roomID}');
     return roomID == invitation.roomID;
   }
 }

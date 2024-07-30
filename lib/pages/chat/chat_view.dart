@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 
@@ -10,26 +11,29 @@ class ChatPage extends StatelessWidget {
 
   ChatPage({super.key});
 
-  Widget _buildItemView(Message message, int index) => ChatItemView(
+  Widget _buildItemView(Message message) => ChatItemView(
         key: logic.itemKey(message),
-        index: index,
         message: message,
+        // isBubbleMsg: !logic.isNotificationType(message) &&
+        //     !logic.isFailedHintMessage(message),
         timeStr: logic.getShowTime(message),
-        messageTimeStr: IMUtils.getChatTimeline(message.sendTime!, 'HH:mm:ss'),
-        isSingleChat: logic.isSingleChat,
-        clickSubject: logic.clickSubject,
+        textScaleFactor: logic.scaleFactor.value,
+        allAtMap: logic.getAtMapping(message),
+        timelineStr: logic.getShowTime(message),
+        // clickSubject: logic.clickSubject,
+        //     messageTimeStr: IMUtils.getChatTimeline(message.sendTime!, 'HH:mm:ss'),
+        // isSingleChat: logic.isSingleChat,
+        // clickSubject: logic.clickSubject,
 
         sendStatusSubject: logic.sendStatusSub,
         sendProgressSubject: logic.sendProgressSub,
         popPageCloseMenuSubject: logic.forceCloseMenuSub,
-        multiSelMode: logic.showCheckbox(message),
-        multiList: logic.multiSelList.value,
-        allAtMap: logic.getAtMapping(message),
-        delaySendingStatus: true,
-
-        ///字体设置【拓展】
-        textScaleFactor: logic.scaleFactor.value,
-        isPrivateChat: logic.isPrivateChat(message),
+        isMultiSelMode: logic.showCheckbox(message),
+        checkedList: logic.multiSelList.value,
+        // delaySendingStatus: true,
+        enabledReadStatus: logic.enabledReadStatus(message),
+        isPrivateChat: message.isPrivateType,
+        // isPrivateChat: logic.isPrivateChat(message),
         readingDuration: logic.readTime(message),
         isPlayingSound: logic.isPlaySound(message),
         onFailedToResend: () => logic.failedResend(message),
@@ -78,8 +82,6 @@ class ChatPage extends StatelessWidget {
         //   logic.markMessageAsRead(message, visible);
         // },
 
-        timelineStr: logic.getShowTime(message),
-
         leftNickname: logic.getNewestNickname(message),
         leftFaceUrl: logic.getNewestFaceURL(message),
         rightNickname: OpenIM.iMManager.userInfo.nickname,
@@ -119,16 +121,11 @@ class ChatPage extends StatelessWidget {
         enabledAddEmojiMenu: logic.showAddEmojiMenu(message),
         enabledSpeakerMenu: logic.showSpeakerMenu(message),
         enabledSpeaker2SpeedMenu: logic.showSpeaker2SpeedMenu(message),
-        showNoticeMessage: true,
+        // showNoticeMessage: true,
         showLongPressMenu: !logic.isMuted,
-
-        enabledReadStatus: logic.enabledReadStatus(message),
 
         // leftBubbleColor: null,
         // rightBubbleColor: null,
-
-        isBubbleMsg: !logic.isNotificationType(message) &&
-            !logic.isFailedHintMessage(message),
       );
 
   CustomTypeInfo? _buildCustomTypeItemView(_, Message message) {
@@ -191,10 +188,13 @@ class ChatPage extends StatelessWidget {
                         controller: logic.inputCtrl,
                         focusNode: logic.focusNode,
                         isMultiModel: logic.multiSelMode.value,
-                        inputFormatters: [AtTextInputFormatter(logic.openAtList)],
+                        inputFormatters: [
+                          AtTextInputFormatter(logic.openAtList)
+                        ],
                         muteEndTime: logic.muteEndTime.value,
-                        isInBlacklist: logic.isSingleChat ? logic.isInBlacklist.value : false,
-
+                        isInBlacklist: logic.isSingleChat
+                            ? logic.isInBlacklist.value
+                            : false,
                         isNotInGroup: logic.isInvalidGroup,
                         onSend: (v) => logic.sendTextMsg(),
                         toolbox: ChatToolBox(
@@ -221,14 +221,63 @@ class ChatPage extends StatelessWidget {
                         ),
                         voiceRecordBar: bar,
                       ),
-                      child: ChatListView(
-                        itemCount: logic.messageList.length,
+                      child:
+                          // ChatListView(
+                          //   itemCount: logic.messageList.length,
+                          //   controller: logic.scrollController,
+                          //   onScrollToBottomLoad: logic.onScrollToBottomLoad,
+                          //   onScrollToTop: logic.onScrollToTop,
+                          //   itemBuilder: (_, index) {
+                          //     final message = logic.indexOfMessage(index);
+                          //     return _buildItemView(message, index);
+                          //   },
+                          // ),
+                          ChatListView(
+                        onTouch: () => logic.closeToolbox(),
+                        itemCount: logic.messageListV2.length,
                         controller: logic.scrollController,
                         onScrollToBottomLoad: logic.onScrollToBottomLoad,
                         onScrollToTop: logic.onScrollToTop,
                         itemBuilder: (_, index) {
-                          final message = logic.indexOfMessage(index);
-                          return _buildItemView(message, index);
+                          if (index == logic.messageListV2.length) {
+                            return logic.showEncryptTips.value
+                                ? Align(
+                                    child: Container(
+                                      width: 300.w,
+                                      decoration: BoxDecoration(
+                                          color: Styles.c_EBEBEB,
+                                          borderRadius:
+                                              BorderRadius.circular(6.r)),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 12.w, vertical: 6.h),
+                                      margin: EdgeInsets.only(bottom: 16.h),
+                                      child: RichText(
+                                        text: TextSpan(children: [
+                                          WidgetSpan(
+                                            child:
+                                                ImageRes.appEncrypt.toImage
+                                                  ..width = 9.w
+                                                  ..height = 10.h,
+                                            alignment:
+                                                PlaceholderAlignment.middle,
+                                          ),
+                                          WidgetSpan(
+                                              child: SizedBox(
+                                            width: 2.w,
+                                          )),
+                                          TextSpan(
+                                            style: Styles.ts_333333_12sp,
+                                            text: StrRes.encryptTips,
+                                          )
+                                        ]),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox();
+                          } else {
+                            final message = logic.indexOfMessage(index);
+                            return Obx(() => _buildItemView(message));
+                          }
                         },
                       ),
                     ),

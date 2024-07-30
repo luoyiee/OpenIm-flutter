@@ -85,7 +85,7 @@ class Config {
     var server = DataSp.getServerConfig();
     if (null != server) {
       url = server['authUrl'];
-      Logger.print('authUrl: $url');
+      LoggerUtil.print('authUrl: $url');
     }
     return url ?? (_isIP ? "http://$_host:10008" : "https://$_host/chat");
   }
@@ -95,7 +95,7 @@ class Config {
     var server = DataSp.getServerConfig();
     if (null != server) {
       url = server['apiUrl'];
-      Logger.print('apiUrl: $url');
+      LoggerUtil.print('apiUrl: $url');
     }
     return url ?? (_isIP ? 'http://$_host:10002' : "https://$_host/api");
   }
@@ -105,7 +105,7 @@ class Config {
     var server = DataSp.getServerConfig();
     if (null != server) {
       url = server['wsUrl'];
-      Logger.print('wsUrl: $url');
+      LoggerUtil.print('wsUrl: $url');
     }
     return url ?? (_isIP ? "ws://$_host:10001" : "wss://$_host/msg_gateway");
   }
@@ -115,7 +115,49 @@ class Config {
 
 // 普通群最大数量
   static int get normalGroupMaxItems => 50;
+
+
+  static const devUserIds = ["5155462645", "18318990002", "4618921056"];
+
+  // 机器人id
+  // 有方医疗-Sophie, Nicole-高尔夫导购, 有方医疗-朱教授, Camera, Nicole-高尔夫导购, 段永平
+  static const botIDs = [
+    "3216431598",
+    "3319670832",
+    "4845282902",
+    "5020681160",
+    "7541408629",
+    "8448328647"
+  ];
+
+  // 用户id, 隐藏开关
+  static const testUserIds = [
+    // my2
+    // "7541478128",
+    "1686677011",
+    "1800018477",
+    "2955365368",
+    "3549502745",
+    "3726015595",
+    "3792530703",
+    "3839132661",
+    "4320364602",
+    "4675068457",
+    "4820243086",
+    "5123545998",
+    "5554614127",
+    "6115200582",
+    "6655641917",
+    "8861997996",
+    "9207186213",
+    "9321133105",
+    "9418318828"
+  ];
 }
 // https://web.rentsoft.cn/chat_enterprise/account/code/send
 // https://web.rentsoft.cn/chat_enterprise/user/find/full
 // https://web.rentsoft.cn/chat_enterprise/user/find/full
+
+
+
+

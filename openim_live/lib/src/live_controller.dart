@@ -219,7 +219,7 @@ mixin OpenIMLive {
   }
 
   onError(error, stack) {
-    Logger.print('onError=====> $error $stack');
+    LoggerUtil.print('onError=====> $error $stack');
     OpenIMLiveClient().close();
     _stopSound();
     if (error is PlatformException) {

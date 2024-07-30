@@ -215,4 +215,15 @@ class ImageRes {
   static const ic_radioSelBlue = "${_dir}/ic_radio_sel_blue.webp";
   static const ic_areaCodeMoreArrow = "${_dir}/ic_areacode_more.webp";
   static const ic_clearInput = "${_dir}/ic_clear_input.webp";
+
+
+
+  ///付费拓展
+  static const appMenuUnTranslate = "$_dir/app_menu_untranslate.png";
+  static const appTranslateLoading = "$_dir/app_translate_loading.gif";
+  static const appMenuUnTts = "$_dir/app_menu_untts.png";
+  static const dialogSuccess = "$_dir/dialog_success.png";
+  static const loading = "$_dir/loading.gif";
+  static const appEncrypt = "$_dir/app_encrypt.png";
+
 }

@@ -126,14 +126,14 @@ class LoginLogic extends GetxController {
       };
       await DataSp.putLoginCertificate(data);
       await DataSp.putLoginAccount(account);
-      Logger.print('login : ${data.userID}, token: ${data.imToken}');
+      LoggerUtil.print('login : ${data.userID}, token: ${data.imToken}');
       await imLogic.login(data.userID, data.imToken);
-      Logger.print('im login success');
+      LoggerUtil.print('im login success');
       pushLogic.login(data.userID);
-      Logger.print('push login success');
+      LoggerUtil.print('push login success');
       return true;
     } catch (e, s) {
-      Logger.print('login e: $e $s');
+      LoggerUtil.print('login e: $e $s');
     }
     return false;
   }

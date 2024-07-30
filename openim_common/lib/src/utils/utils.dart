@@ -290,7 +290,7 @@ class IMUtils {
       try {
         externalStorageDirPath = await AndroidPathProvider.downloadsPath;
       } catch (err, st) {
-        Logger.print('failed to get downloads path: $err, $st');
+        LoggerUtil.print('failed to get downloads path: $err, $st');
         final directory = await getExternalStorageDirectory();
         externalStorageDirPath = directory?.path;
       }
@@ -684,8 +684,8 @@ class IMUtils {
         }
       }
     } catch (e, s) {
-      Logger.print('Exception details:\n $e');
-      Logger.print('Stack trace:\n $s');
+      LoggerUtil.print('Exception details:\n $e');
+      LoggerUtil.print('Stack trace:\n $s');
     }
     return text;
   }
@@ -840,8 +840,8 @@ class IMUtils {
           break;
       }
     } catch (e, s) {
-      Logger.print('Exception details:\n $e');
-      Logger.print('Stack trace:\n $s');
+      LoggerUtil.print('Exception details:\n $e');
+      LoggerUtil.print('Stack trace:\n $s');
     }
     content = content?.replaceAll("\n", " ");
     return content ?? '[${StrRes.unsupportedMessage}]';
@@ -925,8 +925,8 @@ class IMUtils {
           }
       }
     } catch (e, s) {
-      Logger.print('Exception details:\n $e');
-      Logger.print('Stack trace:\n $s');
+      LoggerUtil.print('Exception details:\n $e');
+      LoggerUtil.print('Stack trace:\n $s');
     }
     return null;
   }
@@ -1219,7 +1219,7 @@ class IMUtils {
       String? matchText = match.group(0);
       start ??= match.start;
       end = match.end;
-      Logger.print("Matched: $matchText  start: $start  end: $end");
+      LoggerUtil.print("Matched: $matchText  start: $start  end: $end");
     }
     if (null != start && null != end) {
       final startStr = text.substring(0, start).trimLeft();
@@ -1449,5 +1449,24 @@ class IMUtils {
       );
 
   static bool isNotNullStr(String? str) => null != str && "" != str.trim();
+
+  static String replaceMessageAtMapping(
+      Message message,
+      Map<String, String> newMapping,
+      ) {
+    String text =
+    message.atTextElem!.text!.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' ');
+    final reg = "${regexAt}|${regexAtAll}";
+    final atMap = getAtMapping(message, newMapping);
+    final newText = text.splitMapJoin(RegExp(reg), onMatch: (Match match) {
+      final matchText = match[0]!;
+      String userID = matchText.replaceFirst("@", "").trim();
+      if (atMap.containsKey(userID)) {
+        return '@${atMap[userID]} ';
+      }
+      return matchText;
+    });
+    return newText;
+  }
 
 }

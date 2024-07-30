@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:openim_common/openim_common.dart';
 
@@ -6,6 +7,7 @@ class ChatItemContainerNew extends StatefulWidget {
   const ChatItemContainerNew({
     super.key,
     required this.id,
+    required this.message,
     this.leftFaceUrl,
     this.rightFaceUrl,
     this.leftNickname,
@@ -67,6 +69,7 @@ class ChatItemContainerNew extends StatefulWidget {
   final Function(bool checked)? onRadioChanged;
   final CustomPopupMenuController popupCtrl;
   final Widget Function() menuBuilder;
+  final Message message;
 
   @override
   State<ChatItemContainerNew> createState() => _ChatItemContainerNewState();

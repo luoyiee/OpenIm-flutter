@@ -32,7 +32,7 @@ class Apis {
       });
       return LoginCertificate.fromJson(data!);
     } catch (e, s) {
-      Logger.print('e:$e s:$s');
+      LoggerUtil.print('e:$e s:$s');
       return Future.error(e);
     }
   }
@@ -69,7 +69,7 @@ class Apis {
       });
       return LoginCertificate.fromJson(data!);
     } catch (e, s) {
-      Logger.print('e:$e s:$s');
+      LoggerUtil.print('e:$e s:$s');
       return Future.error(e);
     }
   }
@@ -113,7 +113,7 @@ class Apis {
       );
       return true;
     } catch (e, s) {
-      Logger.print('e:$e s:$s');
+      LoggerUtil.print('e:$e s:$s');
       return false;
     }
   }
@@ -268,7 +268,7 @@ class Apis {
       IMViews.showToast(StrRes.sentSuccessfully);
       return true;
     }).catchError((e, s) {
-      Logger.print('e:$e s:$s');
+      LoggerUtil.print('e:$e s:$s');
       return false;
     });
   }
@@ -286,7 +286,7 @@ class Apis {
       final signaling = SignalingCertificate.fromJson(value)..roomID = roomID;
       return signaling;
     }).catchError((e, s) {
-      Logger.print('e:$e s:$s');
+      LoggerUtil.print('e:$e s:$s');
     });
   }
 
@@ -389,5 +389,26 @@ class Apis {
 
   static String _getOperationID() {
     return DateTime.now().millisecondsSinceEpoch.toString();
+  }
+
+  static Future<dynamic> setConversationConfig(
+      {List<String>? userIDs,
+        required Map<String, dynamic> conversation}) async {
+    userIDs = userIDs ?? [OpenIM.iMManager.userID];
+
+    Map<String, dynamic> param = {
+      'userIDs': userIDs,
+      'conversation': conversation
+    };
+
+    return HttpUtil.post(
+      Urls.setTranslateConfig,
+      data: {
+        ...param,
+        'platform': IMUtils.getPlatform(),
+        'operationID': HttpUtil.operationID,
+      },
+      options: chatTokenOptions,
+    );
   }
 }

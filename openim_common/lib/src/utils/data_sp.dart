@@ -20,6 +20,10 @@ class DataSp {
   static const _chatFontSizeFactor = '%s_chatFontSizeFactor';
   static const _chatBackground = '%s_chatBackground';
 
+
+  ///
+  static const _curAccountLoginInfoKey = '_curAccountLoginInfoKey';
+
   DataSp._();
 
   static init() async {
@@ -161,5 +165,14 @@ class DataSp {
 
   static Future<bool>? clearChatBackground() {
     return SpUtil().remove(getKey(_chatBackground));
+  }
+
+  static String getCurAccountLoginInfoKey() {
+    return SpUtil().getString(_curAccountLoginInfoKey) ?? "";
+  }
+
+  // 完成登录成功后修改
+  static Future<bool>? putCurAccountLoginInfoKey(String key) {
+    return SpUtil().putString(_curAccountLoginInfoKey, key);
   }
 }

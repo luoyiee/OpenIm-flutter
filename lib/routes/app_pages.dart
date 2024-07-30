@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:openim/pages/chat/chat_setup/create_group/create_group_view.dart';
 import 'package:openim/pages/chat/chat_setup/font_size/font_size_binding.dart';
 import 'package:openim/pages/chat/chat_setup/font_size/font_size_view.dart';
+import 'package:openim/pages/chat/chat_setup/search_history_message/preview_message/preview_chat_history_view.dart';
 import 'package:openim/pages/contacts/contacts_view.dart';
 import 'package:openim/pages/contacts/friend_info/friend_info_view.dart';
 import 'package:openim/pages/forget_password/forget_password_view.dart';
@@ -16,6 +17,7 @@ import '../pages/chat/chat_setup/search_history_message/file/file_binding.dart';
 import '../pages/chat/chat_setup/search_history_message/file/file_view.dart';
 import '../pages/chat/chat_setup/search_history_message/picture/picture_binding.dart';
 import '../pages/chat/chat_setup/search_history_message/picture/picture_view.dart';
+import '../pages/chat/chat_setup/search_history_message/preview_message/preview_chat_history_binding.dart';
 import '../pages/chat/chat_setup/search_history_message/preview_message/preview_message_binding.dart';
 import '../pages/chat/chat_setup/search_history_message/preview_message/preview_message_view.dart';
 import '../pages/chat/chat_setup/search_history_message/search_history_message_binding.dart';
@@ -389,8 +391,8 @@ class AppPages {
 
     _pageBuilder(
       name: AppRoutes.PREVIEW_CHAT_HISTORY,
-      page: () => PreviewMessagePage(),
-      binding: PreviewMessageBinding(),
+      page: () => PreviewChatHistoryPage(),
+      binding: PreviewChatHistoryBinding(),
     ),
 
     _pageBuilder(

@@ -172,7 +172,7 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
       _queryMyFullInfo();
       _queryAtAllTag();
     } catch (e, s) {
-      Logger.print('e: $e  s:$s');
+      LoggerUtil.print('e: $e  s:$s');
       await _handleLoginRepeatError(e);
       return Future.error(e, s);
     }

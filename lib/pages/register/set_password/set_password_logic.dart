@@ -118,9 +118,9 @@ class SetPasswordLogic extends GetxController {
       await DataSp.putLoginCertificate(data);
       await DataSp.putLoginAccount(account);
       await imLogic.login(data.userID, data.imToken);
-      Logger.print('---------im login success-------');
+      LoggerUtil.print('---------im login success-------');
       pushLogic.login(data.userID);
-      Logger.print('---------jpush login success----');
+      LoggerUtil.print('---------jpush login success----');
     });
     AppNavigator.startMain();
   }

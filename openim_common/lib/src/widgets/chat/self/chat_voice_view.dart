@@ -193,7 +193,7 @@ import 'package:lottie/lottie.dart';
 // }
 
 /// 去掉语音播放功能
-class ChatVoiceView extends StatefulWidget {
+class ChatVoiceViewBase extends StatefulWidget {
   final String msgId;
   final int index;
   final Stream<int>? clickStream;
@@ -204,7 +204,7 @@ class ChatVoiceView extends StatefulWidget {
   final bool isPlaying;
   final Stream<String>? playingStateStream; // 添加这个参数
 
-  const ChatVoiceView({
+  const ChatVoiceViewBase({
     super.key,
     required this.msgId,
     required this.clickStream,
@@ -218,10 +218,10 @@ class ChatVoiceView extends StatefulWidget {
   });
 
   @override
-  _ChatVoiceViewState createState() => _ChatVoiceViewState();
+  _ChatVoiceViewBaseState createState() => _ChatVoiceViewBaseState();
 }
 
-class _ChatVoiceViewState extends State<ChatVoiceView> {
+class _ChatVoiceViewBaseState extends State<ChatVoiceViewBase> {
   // bool _isPlaying = false;
 
   @override

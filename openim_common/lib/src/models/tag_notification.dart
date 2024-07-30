@@ -55,7 +55,7 @@ class TagNotification {
           return TagNotificationContent.fromJson(json['data']);
         }
       } catch (e, s) {
-        Logger.print('$e  $s');
+        LoggerUtil.print('$e  $s');
       }
     }
     return null;

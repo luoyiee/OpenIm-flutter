@@ -1,83 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:openim_common/openim_common.dart';
 
 import '../../avatar_view.dart';
 
 class ChatCarteView extends StatelessWidget {
   const ChatCarteView({
     Key? key,
-    required this.name,
-    this.url,
+    required this.cardElem,
   }) : super(key: key);
-  final String name;
-  final String? url;
+  final CardElem cardElem;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      // padding: EdgeInsets.only(top: 12.h, bottom: 4.h),
-      width: 200.w,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
-        // border: Border.all(
-        //   color: Color(0xFFECECEC),
-        //   width: 0.5,
-        // ),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0xFF000000).withOpacity(0.1),
-            offset: Offset(0, 2.h),
-            blurRadius: 4,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+  Widget build(BuildContext context) => Container(
+    width: locationWidth,
+    height: 91.h,
+    decoration: BoxDecoration(
+      color: Styles.c_FFFFFF,
+      border: Border.all(color: Styles.c_E8EAEF, width: 1.h),
+      borderRadius: BorderRadius.circular(6.r),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AvatarView(
-                  width: 40.h,
-                  height: 40.h,
-                  url: url,
+                  width: 44.w,
+                  height: 44.h,
+                  url: cardElem.faceURL,
+                  text: cardElem.nickname,
                 ),
-                SizedBox(
-                  width: 10.w,
-                ),
+                10.horizontalSpace,
                 Expanded(
-                  child: Text(
-                    name,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Color(0xFF333333),
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                ),
+                    child: cardElem.nickname!.toText
+                      ..style = Styles.ts_333333_16sp
+                      ..maxLines = 1
+                      ..overflow = TextOverflow.ellipsis),
               ],
             ),
           ),
-          Container(
-            color: Color(0xFFE9E9E9),
-            height: 1.h,
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 3.h, bottom: 4.h, left: 25.w),
-            child: Text(
-              '名片',
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Color(0xFF999999),
-                fontSize: 11.sp,
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+        ),
+        Container(color: Styles.c_E8EAEF, height: 1),
+        Container(
+          height: 26.h,
+          padding: EdgeInsets.only(top: 4.h, bottom: 4.h, left: 16.w),
+          child: StrRes.carte.toText
+            ..style = Styles.ts_999999_12sp,
+        )
+      ],
+    ),
+  );
 }

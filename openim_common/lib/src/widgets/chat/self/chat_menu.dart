@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../openim_common.dart';
 
 class MenuInfo {
-  Widget icon;
+  // Widget icon;
+  String icon;
   String text;
   TextStyle? textStyle;
   Function()? onTap;
@@ -44,13 +45,13 @@ class MenuStyle {
 }
 
 class ChatLongPressMenu extends StatelessWidget {
-  final CustomPopupMenuController controller;
+  final CustomPopupMenuController? popupMenuController;
   final List<MenuInfo> menus;
   final MenuStyle menuStyle;
 
   const ChatLongPressMenu({
     Key? key,
-    required this.controller,
+    required this.popupMenuController,
     required this.menus,
     this.menuStyle = const MenuStyle.base(),
   }) : super(key: key);
@@ -103,14 +104,14 @@ class ChatLongPressMenu extends StatelessWidget {
   }
 
   Widget _menuItem({
-    required Widget icon,
+    required String icon,
     required String label,
     TextStyle? style,
     Function()? onTap,
   }) =>
       GestureDetector(
         onTap: () {
-          controller.hideMenu();
+          popupMenuController?.hideMenu();
           if (null != onTap) onTap();
         },
         behavior: HitTestBehavior.translucent,
@@ -121,40 +122,109 @@ class ChatLongPressMenu extends StatelessWidget {
             horizontal: menuStyle.crossAxisSpacing,
             vertical: menuStyle.mainAxisSpacing / 2,
           ),
-          child: _ItemView(icon: icon, label: label, style: style),
+          // child: _ItemView(icon: icon, label: label, style: style),
+          child: _MenuItemView(icon: icon, label: label),
         ),
       );
 }
 
-class _ItemView extends StatelessWidget {
-  const _ItemView({
-    Key? key,
+
+class _MenuItemView extends StatelessWidget {
+  const _MenuItemView({
+    super.key,
     required this.icon,
     required this.label,
-    this.style,
-  }) : super(key: key);
-  final Widget icon;
+  });
+  final String icon;
   final String label;
-  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            height: 20.w,
-            child: icon,
-          ),
-          Text(
-            label,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: style,
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        icon.toImage
+          ..width = 28.w
+          ..height = 28.h,
+        label.toText
+          ..style = Styles.ts_FFFFFF_10sp
+          ..maxLines = 1
+          ..overflow = TextOverflow.ellipsis,
+      ],
     );
   }
 }
+
+final allMenus = <MenuInfo>[
+  MenuInfo(
+    icon: ImageRes.menuCopy,
+    text: StrRes.menuCopy,
+    onTap: () {},
+  ),
+  MenuInfo(
+    icon: ImageRes.menuDel,
+    text: StrRes.menuDel,
+    onTap: () {},
+  ),
+  MenuInfo(
+    icon: ImageRes.menuForward,
+    text: StrRes.menuForward,
+    onTap: () {},
+  ),
+  MenuInfo(
+    icon: ImageRes.menuReply,
+    text: StrRes.menuReply,
+    onTap: () {},
+  ),
+  MenuInfo(
+    icon: ImageRes.menuMulti,
+    text: StrRes.menuMulti,
+    onTap: () {},
+  ),
+  MenuInfo(
+    icon: ImageRes.menuRevoke,
+    text: StrRes.menuRevoke,
+    onTap: () {},
+  ),
+  MenuInfo(
+    icon: ImageRes.menuAddFace,
+    text: StrRes.menuAdd,
+    onTap: () {},
+  ),
+];
+
+
+
+// class _ItemView extends StatelessWidget {
+//   const _ItemView({
+//     Key? key,
+//     required this.icon,
+//     required this.label,
+//     this.style,
+//   }) : super(key: key);
+//   final Widget icon;
+//   final String label;
+//   final TextStyle? style;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         children: [
+//           Container(
+//             height: 20.w,
+//             child: icon,
+//           ),
+//           Text(
+//             label,
+//             maxLines: 1,
+//             overflow: TextOverflow.ellipsis,
+//             style: style,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

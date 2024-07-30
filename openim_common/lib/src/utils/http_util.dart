@@ -4,8 +4,11 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:logger/logger.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
+
+import '../widgets/chat/plus/my_logger.dart';
 
 var dio = Dio();
 
@@ -120,7 +123,7 @@ class HttpUtil {
     if (compress) {
       File? compressFile = await IMUtils.compressImageAndGetFile(File(path));
       compressPath = compressFile?.path;
-      Logger.print('compressPath: $compressPath');
+      myLogger.i('compressPath: $compressPath');
     }
     final bytes = await File(compressPath ?? path).readAsBytes();
     final mf = MultipartFile.fromBytes(bytes, filename: fileName);

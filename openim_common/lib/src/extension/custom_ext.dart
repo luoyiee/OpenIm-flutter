@@ -7,11 +7,12 @@ import 'package:rxdart/rxdart.dart';
 extension SubjectExt<T> on Subject<T> {
   T addSafely(T data) {
     if (!isClosed) sink.add(data);
-
+    // if (!isClosed) add(data);
     return data;
   }
 }
 
+/// 解决当输入框内容全为字母且长度超过63不能继续输入的bug
 extension TextEdCtrlExt on TextEditingController {
   void fixed63Length() {
     addListener(() {
@@ -28,6 +29,7 @@ extension TextEdCtrlExt on TextEditingController {
   }
 }
 
+/// 将文字转换成Image
 extension StrExt on String {
   ImageView get toImage {
     return ImageView(name: this);
@@ -41,11 +43,27 @@ extension StrExt on String {
     return LottieView(name: this);
   }
 
+  // 换行留白问题 调用此方法会导致字符串插入​ 导致@消息无法match
+// String fixAutoLines() {
+//   return Characters(this).join('\u{200B}');
+// }
+
   String fixAutoLines() {
     return Characters(this).join('\u{200B}');
   }
+
+  String get thumbnailUrl {
+    final host = split('?').first;
+    return '$host?height=250&width=250&type=image';
+  }
+
+  String adjustThumbnailUrl(int size) {
+    final host = split('?').first;
+    return '$host?height=$size&width=$size&type=image';
+  }
 }
 
+// ignore: must_be_immutable
 class LottieView extends StatelessWidget {
   LottieView({
     Key? key,
@@ -71,6 +89,7 @@ class LottieView extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class TextView extends StatelessWidget {
   TextView({
     Key? key,
@@ -81,6 +100,7 @@ class TextView extends StatelessWidget {
     this.textScaleFactor,
     this.maxLines,
     this.onTap,
+    this.wordEllipsis = true
   }) : super(key: key);
   final String data;
   TextStyle? style;
@@ -89,22 +109,25 @@ class TextView extends StatelessWidget {
   double? textScaleFactor;
   int? maxLines;
   Function()? onTap;
+  bool wordEllipsis;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         behavior: HitTestBehavior.translucent,
         child: Text(
-          data,
+          wordEllipsis ? data : data.replaceAll('', '\u200B'), //解决Flutter按单词省略
           style: style,
           textAlign: textAlign,
           overflow: overflow,
-          textScaleFactor: textScaleFactor,
+          // textScaleFactor: textScaleFactor,
+          textScaler: TextScaler.linear(textScaleFactor ?? 1),
           maxLines: maxLines,
         ),
       );
 }
 
+// ignore: must_be_immutable
 class ImageView extends StatelessWidget {
   ImageView({
     Key? key,

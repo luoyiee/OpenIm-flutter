@@ -15,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 
 class IMViews {
   IMViews._();
@@ -182,7 +183,7 @@ class IMViews {
       String putID = const Uuid().v4();
       dynamic result;
       if (null != cropFile) {
-        Logger.print('-----------crop path: ${cropFile.path}');
+        LoggerUtil.print('-----------crop path: ${cropFile.path}');
         result = await LoadingView.singleton.wrap(asyncFunction: () async {
           final image = await IMUtils.compressImageAndGetFile(File(cropFile!.path));
 
@@ -193,7 +194,7 @@ class IMViews {
           );
         });
       } else {
-        Logger.print('-----------source path: $path');
+        LoggerUtil.print('-----------source path: $path');
         result = await LoadingView.singleton.wrap(asyncFunction: () async {
           final image = await IMUtils.compressImageAndGetFile(File(path));
 
@@ -206,7 +207,7 @@ class IMViews {
       }
       if (result is String) {
         url = jsonDecode(result)['url'];
-        Logger.print('url:$url');
+        LoggerUtil.print('url:$url');
       }
     }
     return {'path': cropFile?.path ?? path, 'url': url};
@@ -354,5 +355,76 @@ class IMViews {
         ],
       ),
     );
+  }
+
+  static void showSinglePicker({
+    required String title,
+    required String description,
+    required dynamic pickerData,
+    bool isArray = false,
+    List<int>? selected,
+    Function(List<int> indexList, List valueList)? onConfirm,
+  }) async {
+    final picker = Picker(
+        adapter: PickerDataAdapter<String>(
+          pickerData: pickerData,
+          isArray: isArray,
+        ),
+        changeToFirst: true,
+        hideHeader: true,
+        containerColor: Styles.c_FFFFFF,
+        textStyle: Styles.ts_333333_17sp,
+        selectedTextStyle: Styles.ts_333333_17sp,
+        itemExtent: 45.h,
+        cancelTextStyle: Styles.ts_333333_17sp,
+        confirmTextStyle: Styles.ts_8443F8_17sp,
+        cancelText: StrRes.cancel,
+        confirmText: StrRes.confirm,
+        selecteds: selected,
+        selectionOverlay: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: BorderDirectional(
+              bottom: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+              top: BorderSide(color: Styles.c_E8EAEF, width: 1.h),
+            ),
+          ),
+        )).getInstance();
+
+    final confirm = await Get.dialog(CustomDialog(
+      body: Padding(
+          padding: EdgeInsets.only(
+            top: 16.w,
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
+                ),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: Styles.ts_333333_16sp_medium,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: 12.h,
+                  horizontal: 16.w,
+                ),
+                child: Text(
+                  description,
+                  textAlign: TextAlign.center,
+                  style: Styles.ts_333333_14sp,
+                ),
+              ),
+              picker.widget!
+            ],
+          )),
+    ));
+    if (confirm) {
+      onConfirm?.call(picker.selecteds, picker.getSelectedValues());
+    }
   }
 }

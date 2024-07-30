@@ -126,7 +126,7 @@ class ConversationLogic extends GetxController {
         }
       }
     } catch (e, s) {
-      Logger.print('e: $e  s: $s');
+      LoggerUtil.print('e: $e  s: $s');
     }
 
     return prefix;
@@ -150,7 +150,7 @@ class ConversationLogic extends GetxController {
 
       return "${info.latestMsg!.senderNickname}: ${IMUtils.parseMsg(info.latestMsg!, isConversation: true)} ";
     } catch (e, s) {
-      Logger.print('------e:$e s:$s');
+      LoggerUtil.print('------e:$e s:$s');
     }
     return '[${StrRes.unsupportedMessage}]';
   }
@@ -242,7 +242,7 @@ class ConversationLogic extends GetxController {
       return;
     }
 
-    Logger.print('draftText:$newDraftText');
+    LoggerUtil.print('draftText:$newDraftText');
     OpenIM.iMManager.conversationManager.setConversationDraft(
       conversationID: conversationID,
       draftText: newDraftText,

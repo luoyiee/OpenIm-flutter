@@ -14,10 +14,16 @@ abstract class ScanBridge {
 }
 
 abstract class ViewUserProfileBridge {
-  viewUserProfile(String userID, String? nickname, String? faceURL);
+  viewUserProfile(
+    String userID,
+    String? nickname,
+    String? faceURL, [
+    String? groupID,
+  ]);
 }
 
 abstract class SelectContactsBridge {
+  /// [type] 0：谁可以看 1：提醒谁看 2: 分享视频会议
   Future<T?>? selectContacts<T>(
     int type, {
     List<String>? defaultCheckedIDList,
@@ -31,6 +37,7 @@ abstract class SelectContactsBridge {
 
 abstract class RTCBridge {
   bool get hasConnection;
+
   void dismiss();
 }
 

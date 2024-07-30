@@ -21,4 +21,7 @@ class Urls {
       "${Config.imApiUrl}/manager/get_users_online_status";
   static var userOnlineStatus =
       "${Config.imApiUrl}/user/get_users_online_status";
+
+  static String get setTranslateConfig =>
+      "${Config.appAuthUrl}/translate/config/set";
 }

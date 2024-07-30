@@ -68,6 +68,7 @@ class ChatLogic extends GetxController {
   var _lastCursorIndex = -1;
   final onlineStatus = false.obs;
   final onlineStatusDesc = ''.obs;
+  final showEncryptTips = false.obs;
   Timer? onlineStatusTimer;
   final memberUpdateInfoMap = <String, GroupMembersInfo>{};
   final groupMessageReadMembers = <String, List<String>>{};
@@ -78,6 +79,7 @@ class ChatLogic extends GetxController {
   final isInGroup = true.obs;
   final memberCount = 0.obs;
   final isInBlacklist = false.obs;
+  // final aiUtil = Get.find<AiUtil>();
 
   final scrollingCacheMessageList = <Message>[];
   late StreamSubscription memberAddSub;
@@ -90,7 +92,7 @@ class ChatLogic extends GetxController {
 
   late StreamSubscription connectionSub;
   final syncStatus = IMSdkStatus.syncEnded.obs;
-
+  final extraMessageList = <Message>[].obs;
   int? lastMinSeq;
 
   bool _isReceivedMessageWhenSyncing = false;
@@ -123,6 +125,32 @@ class ChatLogic extends GetxController {
   /// 单独被禁言
   bool get isUserMuted =>
       muteEndTime.value * 1000 > DateTime.now().millisecondsSinceEpoch;
+
+  List<Message> get messageListV2 {
+    // return [...messageList, ...(disabledChatInput ? extraMessageList : [])];
+    return [...messageList];
+  }
+
+  // bool get isAiSingleChat => isSingleChat && aiUtil.isAi(userID);
+
+
+  // bool get disabledChatInput {
+  //   // if (!isAiSingleChat || messageList.isEmpty) {
+  //   if (messageList.isEmpty) {
+  //     return false;
+  //   } else {
+  //     final lastMsgSendTime = messageList.last.sendTime;
+  //     final waitingST =
+  //         conversationUtil.getConversationStoreById(conversationID)?.waitingST;
+  //     return null != lastMsgSendTime &&
+  //         null != waitingST &&
+  //         -1 != waitingST &&
+  //         lastMsgSendTime <= waitingST &&
+  //         // 防止时间误差导致禁用, 可能会导致焚烧后最后一条消息不对导致解除
+  //         messageList.last.sendID == OpenIM.iMManager.userID &&
+  //         curTime.value < lastMsgSendTime + 60000;
+  //   }
+  // }
 
   /// 群禁言状态
   var groupMutedStatus = 0.obs;
@@ -475,7 +503,7 @@ class ChatLogic extends GetxController {
         scrollBottom();
       }
     }
-    Logger.print('uid:$userID userId:$userId gid:$groupID groupId:$groupId');
+    LoggerUtil.print('uid:$userID userId:$userId gid:$groupID groupId:$groupId');
     _reset(message);
 
     bool useOuterValue = null != userId || null != groupId;
@@ -492,7 +520,7 @@ class ChatLogic extends GetxController {
   }
 
   void _sendSucceeded(Message oldMsg, Message newMsg) {
-    Logger.print('message send success----');
+    LoggerUtil.print('message send success----');
 
     oldMsg.update(newMsg);
     sendStatusSub.addSafely(MsgStreamEv<bool>(
@@ -502,7 +530,7 @@ class ChatLogic extends GetxController {
   }
 
   void _senFailed(Message message, String? groupId, error, stack) async {
-    Logger.print('message send failed e :$error  $stack');
+    LoggerUtil.print('message send failed e :$error  $stack');
     message.status = MessageStatus.failed;
     sendStatusSub.addSafely(MsgStreamEv<bool>(
       id: message.clientMsgID!,
@@ -662,9 +690,9 @@ class ChatLogic extends GetxController {
 
   void _handleAssets(AssetEntity? asset) async {
     if (null != asset) {
-      Logger.print('--------assets type-----${asset.type}');
+      LoggerUtil.print('--------assets type-----${asset.type}');
       var path = (await asset.file)!.path;
-      Logger.print('--------assets path-----$path');
+      LoggerUtil.print('--------assets path-----$path');
       switch (asset.type) {
         case AssetType.image:
           sendPicture(path: path);
@@ -942,7 +970,7 @@ class ChatLogic extends GetxController {
   void focusNodeChanged(bool hasFocus) {
     sendTypingMsg(focus: hasFocus);
     if (hasFocus) {
-      Logger.print('focus:$hasFocus');
+      LoggerUtil.print('focus:$hasFocus');
       scrollBottom();
     }
   }
@@ -2043,6 +2071,11 @@ class ChatLogic extends GetxController {
       return "@";
     }
     return null;
+  }
+
+  /// 触摸其他地方强制关闭工具箱
+  void closeToolbox() {
+    forceCloseToolbox.addSafely(true);
   }
 
 }

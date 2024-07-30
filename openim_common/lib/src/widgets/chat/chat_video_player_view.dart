@@ -27,14 +27,14 @@ class CachedVideoControllerService extends VideoControllerService {
     final file = await getCacheFile(videoUrl);
 
     if (file == null) {
-      Logger.print('[VideoControllerService]: No video in cache');
+      LoggerUtil.print('[VideoControllerService]: No video in cache');
 
-      Logger.print('[VideoControllerService]: Saving video to cache');
+      LoggerUtil.print('[VideoControllerService]: Saving video to cache');
       unawaited(_cacheManager.downloadFile(videoUrl));
 
       return VideoPlayerController.network(videoUrl);
     } else {
-      Logger.print('[VideoControllerService]: Loading video from cache');
+      LoggerUtil.print('[VideoControllerService]: Loading video from cache');
       return VideoPlayerController.file(file);
     }
   }

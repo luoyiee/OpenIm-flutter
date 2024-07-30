@@ -55,7 +55,8 @@ class StrRes {
 
   static String get resendVerificationCode => 'resendVerificationCode'.tr;
 
-  static String get verificationCodeTimingReminder => 'verificationCodeTimingReminder'.tr;
+  static String get verificationCodeTimingReminder =>
+      'verificationCodeTimingReminder'.tr;
 
   static String get defaultVerificationCode => 'defaultVerificationCode'.tr;
 
@@ -261,7 +262,8 @@ class StrRes {
 
   static String get releaseToSend => 'releaseToSend'.tr;
 
-  static String get releaseToSendSwipeUpToCancel => 'releaseToSendSwipeUpToCancel'.tr;
+  static String get releaseToSendSwipeUpToCancel =>
+      'releaseToSendSwipeUpToCancel'.tr;
 
   static String get liftFingerToCancelSend => 'liftFingerToCancelSend'.tr;
 
@@ -679,7 +681,8 @@ class StrRes {
 
   static String get confirm => 'confirm'.tr;
 
-  static String get confirmTransferGroupToUser => 'confirmTransferGroupToUser'.tr;
+  static String get confirmTransferGroupToUser =>
+      'confirmTransferGroupToUser'.tr;
 
   static String get removeGroupMember => 'removeGroupMember'.tr;
 
@@ -927,7 +930,8 @@ class StrRes {
 
   static String get confirmTheChanges => 'confirmTheChanges'.tr;
 
-  static String get invitesYouToVideoConference => 'invitesYouToVideoConference'.tr;
+  static String get invitesYouToVideoConference =>
+      'invitesYouToVideoConference'.tr;
 
   static String get over => 'over'.tr;
 
@@ -1031,7 +1035,8 @@ class StrRes {
 
   static String get sendAnother => 'sendAnother'.tr;
 
-  static String get confirmDelTagNotificationHint => 'confirmDelTagNotificationHint'.tr;
+  static String get confirmDelTagNotificationHint =>
+      'confirmDelTagNotificationHint'.tr;
 
   static String get contentNotBlank => 'contentNotBlank'.tr;
 
@@ -1042,4 +1047,89 @@ class StrRes {
   static String get otherCallHandle => 'otherCallHandle'.tr;
 
   static String get callFail => 'callFail'.tr;
+
+  ///拓展
+  static String get targetLang => 'targetLang'.tr;
+
+  static String get unTranslate => 'unTranslate'.tr;
+
+  static String get translateFail => 'translateFail'.tr;
+
+  static String get hide => 'hide'.tr;
+
+  static String get quoteContentBeRevoked => 'quoteContentBeRevoked'.tr;
+
+  static String get developing => 'developing'.tr;
+
+  static String get success => 'success'.tr;
+
+  static String get auto => 'auto'.tr;
+
+  static String get English => 'English'.tr;
+
+  static String get Spanish => 'Spanish'.tr;
+
+  static String get French => 'French'.tr;
+
+  static String get German => 'German'.tr;
+
+  static String get Italian => 'Italian'.tr;
+
+  static String get Portuguese => 'Portuguese'.tr;
+
+  static String get Dutch => 'Dutch'.tr;
+
+  static String get Russian => 'Russian'.tr;
+
+  static String get Swedish => 'Swedish'.tr;
+
+  static String get Polish => 'Polish'.tr;
+
+  static String get Danish => 'Danish'.tr;
+
+  static String get Norwegian => 'Norwegian'.tr;
+
+  static String get Irish => 'Irish'.tr;
+
+  static String get Greek => 'Greek'.tr;
+
+  static String get Finnish => 'Finnish'.tr;
+
+  static String get Czech => 'Czech'.tr;
+
+  static String get Hungarian => 'Hungarian'.tr;
+
+  static String get Romanian => 'Romanian'.tr;
+
+  static String get Bulgarian => 'Bulgarian'.tr;
+
+  static String get Slovak => 'Slovak'.tr;
+
+  static String get Slovenian => 'Slovenian'.tr;
+
+  static String get Estonian => 'Estonian'.tr;
+
+  static String get Latvian => 'Latvian'.tr;
+
+  static String get Lithuanian => 'Lithuanian'.tr;
+
+  static String get Maltese => 'Maltese'.tr;
+
+  static String get Icelandic => 'Icelandic'.tr;
+
+  static String get Albanian => 'Albanian'.tr;
+
+  static String get Croatian => 'Croatian'.tr;
+
+  static String get Serbian => 'Serbian'.tr;
+
+
+
+
+  static String get autoTranslate => 'autoTranslate'.tr;
+  static String get tips => 'tips'.tr;
+  static String get iKnow => 'iKnow'.tr;
+  static String get someFail => 'someFail'.tr;
+  static String get allSuccess => 'allSuccess'.tr;
+  static String get encryptTips => 'encryptTips'.tr;
 }
