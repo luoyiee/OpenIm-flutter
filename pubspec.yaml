@@ -108,7 +108,7 @@ dependencies:
   speech_to_text: ^6.6.0
   flutter_bugly: ^0.4.4
   async: ^2.11.0
-
+  logger: ^2.4.0
   flutter_download_manager:
     path: local_plugin/flutter_download_manager
   openim_common:

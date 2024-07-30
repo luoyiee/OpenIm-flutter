@@ -1469,4 +1469,15 @@ class IMUtils {
     return newText;
   }
 
+  static Future<File?> getFile({
+    required String path,
+  }) async {
+    final file = File(path);
+    if (await file.exists()) {
+      return file;
+    } else {
+      return null;
+    }
+  }
+
 }

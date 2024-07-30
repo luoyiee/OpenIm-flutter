@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:openim_common/openim_common.dart';
+
+import 'account_util.dart';
 
 class ConversationUtil extends GetxController {
   final accountUtil = Get.find<AccountUtil>();

@@ -5,15 +5,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter_picker/flutter_picker.dart';
-import 'package:flutter_picker_example/picker_test.dart';
+import 'package:get/get.dart';
 import 'picker_data.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Miti());
 
-class MyApp extends StatefulWidget {
+class Miti extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _MitiState createState() => _MitiState();
 }
 
 final String _fontFamily = Platform.isWindows ? "Roboto" : "";
@@ -26,7 +26,24 @@ const Set<PointerDeviceKind> _kTouchLikeDeviceTypes = <PointerDeviceKind>{
   PointerDeviceKind.unknown
 };
 
-class _MyAppState extends State<MyApp> {
+class _MitiState extends State<Miti> {
+  final appCommonLogic = Get.put(AppCommonLogic());
+  final appCtrl = Get.put(AppCtrl());
+  late AppLinks _appLinks;
+  StreamSubscription<Uri>? _linkSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    initDeepLinks();
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
