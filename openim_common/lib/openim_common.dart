@@ -101,6 +101,10 @@ export 'src/widgets/debounce_button.dart';
 export 'src/widgets/radio_button.dart';
 export 'src/widgets/chat_multi_toolbox.dart';
 export 'src/widgets/chat/plus/my_logger.dart';
+export 'src/utils/translateLogic.dart';
+export 'src/utils/ttsLogic.dart';
+export 'src/models/conversation_config.dart';
+export 'src/models/ai.dart';
 
 
 

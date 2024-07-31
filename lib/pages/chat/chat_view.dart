@@ -7,11 +7,14 @@ import 'package:openim_common/openim_common.dart';
 import 'chat_logic.dart';
 
 class ChatPage extends StatelessWidget {
+  // final logic = Get.find<ChatLogic>();
   final logic = Get.find<ChatLogic>(tag: GetTags.chat);
 
   ChatPage({super.key});
 
   Widget _buildItemView(Message message) => ChatItemView(
+        // showRead: logic.isAiSingleChat ? true : null,
+        showRead: null,
         key: logic.itemKey(message),
         message: message,
         // isBubbleMsg: !logic.isNotificationType(message) &&
@@ -254,10 +257,9 @@ class ChatPage extends StatelessWidget {
                                       child: RichText(
                                         text: TextSpan(children: [
                                           WidgetSpan(
-                                            child:
-                                                ImageRes.appEncrypt.toImage
-                                                  ..width = 9.w
-                                                  ..height = 10.h,
+                                            child: ImageRes.appEncrypt.toImage
+                                              ..width = 9.w
+                                              ..height = 10.h,
                                             alignment:
                                                 PlaceholderAlignment.middle,
                                           ),

@@ -3,6 +3,26 @@ import 'package:dio/dio.dart';
 import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:openim_common/openim_common.dart';
 
+
+enum RegisterType { google, apple, facebook, temp }
+
+extension RegisterTypeExtension on RegisterType {
+  int toNumber() {
+    switch (this) {
+      case RegisterType.google:
+        return 3;
+      case RegisterType.apple:
+        return 4;
+      case RegisterType.facebook:
+        return 5;
+      case RegisterType.temp:
+        return 6;
+      default:
+        return 3;
+    }
+  }
+}
+
 class Apis {
   static Options get imTokenOptions =>
       Options(headers: {'token': DataSp.imToken});
@@ -410,5 +430,29 @@ class Apis {
       },
       options: chatTokenOptions,
     );
+  }
+
+  static Future<dynamic> getBots() async {
+    return HttpUtil.post(
+     Urls.getBots,
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<dynamic> getMyAi() async {
+    return HttpUtil.post(
+      Urls.getMyAi,
+      options: chatTokenOptions,
+    );
+  }
+
+  static Future<bool> checkServerValid(
+      {required String serverWithProtocol}) async {
+    await HttpUtil.post(
+      "$serverWithProtocol${Config.targetIsDomainWithProtocol(serverWithProtocol) ? '/chat' : ':10008'}${Urls.checkServerValid}",
+      data: {},
+      showErrorToast: false,
+    );
+    return true;
   }
 }

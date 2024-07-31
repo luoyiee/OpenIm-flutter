@@ -117,6 +117,37 @@ class Config {
   static int get normalGroupMaxItems => 50;
 
 
+  // static const _ipRegex =
+  //     r'((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)';
+
+  static const _domainRegex =
+      r'^(?:(?=[^\.]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$';
+
+  static const _ipWithProtocolRegex =
+      r'^(http://|https://)((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$';
+
+  static const _domainWithProtocolRegex =
+      r'^(http://|https://)(?:(?=[^\.]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$';
+
+
+  static bool targetIsDomainOrIPWithProtocol(String target) =>
+      targetIsIPWithProtocol(target) || targetIsDomainWithProtocol(target);
+
+  static bool targetIsDomainOrIP(String target) =>
+      targetIsDomain(target) || targetIsIP(target);
+
+  static bool targetIsIPWithProtocol(String target) =>
+      RegExp(_ipWithProtocolRegex).hasMatch(target);
+
+  static bool targetIsIP(String target) => RegExp(_ipRegex).hasMatch(target);
+
+  static bool targetIsDomain(String target) =>
+      RegExp(_domainRegex, caseSensitive: false).hasMatch(target);
+
+  static bool targetIsDomainWithProtocol(String target) =>
+      RegExp(_domainWithProtocolRegex, caseSensitive: false).hasMatch(target);
+
+
   static const devUserIds = ["5155462645", "18318990002", "4618921056"];
 
   // 机器人id

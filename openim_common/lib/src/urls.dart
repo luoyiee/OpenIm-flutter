@@ -24,4 +24,10 @@ class Urls {
 
   static String get setTranslateConfig =>
       "${Config.appAuthUrl}/translate/config/set";
+
+  static String get getBots => '${Config.appAuthUrl}/bot/find/public';
+
+  static String get getMyAi => '${Config.appAuthUrl}/bot/find/mine';
+
+  static String get checkServerValid => '/client_config/get';
 }

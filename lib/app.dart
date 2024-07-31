@@ -2,12 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:openim/utils/account_util.dart';
 import 'package:openim_common/openim_common.dart';
 
 import 'core/controller/im_controller.dart';
 import 'core/controller/permission_controller.dart';
 import 'core/controller/push_controller.dart';
 import 'routes/app_pages.dart';
+import 'utils/ai_util.dart';
+import 'utils/conversation_util.dart';
+import 'utils/message_util.dart';
 import 'widgets/app_view.dart';
 
 class ChatApp extends StatefulWidget {
@@ -75,5 +79,12 @@ class InitBinding extends Bindings {
     Get.put<PushController>(PushController());
     Get.put<CacheController>(CacheController());
     Get.put<DownloadController>(DownloadController());
+    // Get.put(BetaTestLogic());
+    // Get.put(AccountUtil());
+    Get.put(AiUtil());
+    Get.put(ConversationUtil());
+    Get.put(TranslateLogic());
+    Get.put(TtsLogic());
+    Get.put(MessageUtil());
   }
 }

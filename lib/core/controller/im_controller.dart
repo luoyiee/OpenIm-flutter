@@ -28,6 +28,10 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
     WidgetsBinding.instance.addPostFrameCallback((_) => initOpenIM());
   }
 
+  bool isLogined() {
+    return OpenIM.iMManager.isLogined;
+  }
+
   void initOpenIM() async {
     final initialized = await OpenIM.iMManager.initSDK(
       platformID: IMUtils.getPlatform(),
@@ -209,4 +213,78 @@ class IMController extends GetxController with IMCallback, OpenIMLive {
       await DataSp.removeLoginCertificate();
     }
   }
+
+
+  // void reBuildSubject() {
+  //   close();
+  //   recvGroupReadReceiptSubject = BehaviorSubject<GroupMessageReceipt>();
+  //
+  //   /// 新增会话
+  //   conversationAddedSubject = BehaviorSubject<List<ConversationInfo>>();
+  //
+  //   /// 旧会话更新
+  //   conversationChangedSubject = BehaviorSubject<List<ConversationInfo>>();
+  //
+  //   /// 未读消息数
+  //   unreadMsgCountEventSubject = PublishSubject<int>();
+  //
+  //   /// 好友申请列表变化（包含自己发出的以及收到的）
+  //   friendApplicationChangedSubject = BehaviorSubject<FriendApplicationInfo>();
+  //
+  //   /// 新增好友
+  //   friendAddSubject = BehaviorSubject<FriendInfo>();
+  //
+  //   /// 删除好友
+  //   friendDelSubject = BehaviorSubject<FriendInfo>();
+  //
+  //   /// 好友信息改变
+  //   friendInfoChangedSubject = BehaviorSubject<FriendInfo>();
+  //
+  //   /// 自己信息更新
+  //   selfInfoUpdatedSubject = BehaviorSubject<UserInfo>();
+  //
+  //   /// 用户在线状态更新
+  //   userStatusChangedSubject = BehaviorSubject<UserStatusInfo>();
+  //
+  //   /// 组信息更新
+  //   groupInfoUpdatedSubject = BehaviorSubject<GroupInfo>();
+  //
+  //   /// 组申请列表变化（包含自己发出的以及收到的）
+  //   groupApplicationChangedSubject = BehaviorSubject<GroupApplicationInfo>();
+  //
+  //   initializedSubject = PublishSubject<bool>();
+  //
+  //   /// 群成员收到：群成员已进入
+  //   memberAddedSubject = BehaviorSubject<GroupMembersInfo>();
+  //
+  //   /// 群成员收到：群成员已退出
+  //   memberDeletedSubject = BehaviorSubject<GroupMembersInfo>();
+  //
+  //   /// 群成员信息变化
+  //   memberInfoChangedSubject = PublishSubject<GroupMembersInfo>();
+  //
+  //   /// 被踢
+  //   joinedGroupDeletedSubject = BehaviorSubject<GroupInfo>();
+  //
+  //   /// 拉人
+  //   joinedGroupAddedSubject = BehaviorSubject<GroupInfo>();
+  //
+  //   onKickedOfflineSubject = PublishSubject();
+  //
+  //   imSdkStatusSubject = BehaviorSubject<IMSdkStatus>();
+  //
+  //   roomParticipantDisconnectedSubject = PublishSubject<RoomCallingInfo>();
+  //
+  //   roomParticipantConnectedSubject = PublishSubject<RoomCallingInfo>();
+  //
+  //   momentsSubject = PublishSubject<WorkMomentsNotification>();
+  //
+  //   inviteApplySubject = PublishSubject<Map<String, dynamic>>();
+  //
+  //   inviteApplyHandleSubject = PublishSubject<Map<String, dynamic>>();
+  //
+  //   // customBusinessSubject = PublishSubject();
+  //
+  //   // meetingSteamChangedSubject = PublishSubject<dynamic>();
+  // }
 }

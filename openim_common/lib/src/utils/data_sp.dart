@@ -3,6 +3,10 @@ import 'package:openim_common/openim_common.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/account_login_info.dart';
+import '../models/ai.dart';
+import '../models/conversation_config.dart';
+
 class DataSp {
   static const _loginCertificate = 'loginCertificate';
   static const _loginAccount = 'loginAccount';
@@ -23,6 +27,9 @@ class DataSp {
 
   ///
   static const _curAccountLoginInfoKey = '_curAccountLoginInfoKey';
+  static const _conversationStore = 'conversationStore';
+  static const _aiStore = 'aiStore';
+  static const _accountLoginInfoMap = 'accountLoginInfo';
 
   DataSp._();
 
@@ -175,4 +182,64 @@ class DataSp {
   static Future<bool>? putCurAccountLoginInfoKey(String key) {
     return SpUtil().putString(_curAccountLoginInfoKey, key);
   }
+
+  static Future<bool>? putConversationStore(
+      Map<String, ConversationConfig> data) {
+    final map = getConversationStore() ?? {};
+    map.addAll(data);
+    return SpUtil().putObject(_conversationStore, map);
+  }
+
+  static Map<String, ConversationConfig>? getConversationStore() {
+    return SpUtil().getObj(
+        _conversationStore,
+            (map) => map.map(
+                (key, value) => MapEntry(key, ConversationConfig.fromJson(value))));
+  }
+
+
+  static Future<bool>? putAiStore(Map<String, Ai> data) {
+    final map = getAiStore() ?? {};
+    map.addAll(data);
+    return SpUtil().putObject(_aiStore, map);
+  }
+
+  static Future<bool>? clearAiStore() {
+    return SpUtil().putObject(_aiStore, {});
+  }
+
+  static Map<String, Ai>? getAiStore() {
+    return SpUtil().getObj(_aiStore,
+            (map) => map.map((key, value) => MapEntry(key, Ai.fromJson(value))));
+  }
+
+  static List<String>? getAiKeys() {
+    final store = getAiStore();
+    return null == store ? [] : store.keys.toList();
+  }
+
+  static AccountLoginInfo? getAccountLoginInfoByKey(String key) {
+    return getAccountLoginInfoMap()?[key];
+  }
+
+  static Future<bool>? removeAccountLoginInfoByKey(String key) {
+    final map = getAccountLoginInfoMap();
+    if (null != map && map.containsKey(key)) {
+      map.remove(key);
+      return SpUtil().putObject(_accountLoginInfoMap, map);
+    }
+    return Future.value(true);
+  }
+
+  static Future<bool>? clearAccountLoginInfo() {
+    return SpUtil().putObject(_accountLoginInfoMap, {});
+  }
+
+  static Map<String, AccountLoginInfo>? getAccountLoginInfoMap() {
+    return SpUtil().getObj(
+        _accountLoginInfoMap,
+            (map) => map.map(
+                (key, value) => MapEntry(key, AccountLoginInfo.fromJson(value))));
+  }
+
 }
