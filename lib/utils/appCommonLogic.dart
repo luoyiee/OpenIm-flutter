@@ -1,5 +1,4 @@
 import 'dart:io';
-// import 'package:app_installer/app_installer.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -73,7 +72,7 @@ class AppCommonLogic extends GetxController {
     if (Platform.isIOS) {
       if (null != iosInfo) return iosInfo;
       iosInfo = await deviceInfo.iosInfo;
-      deviceModel = iosInfo?.utsname?.machine ?? "iosModel";
+      deviceModel = iosInfo?.utsname.machine ?? "iosModel";
       myLogger.i({"message": "设备信息", "data": iosInfo});
       return iosInfo;
     } else {

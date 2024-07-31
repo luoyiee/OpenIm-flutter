@@ -3,7 +3,6 @@ import 'package:flutter_openim_sdk/flutter_openim_sdk.dart';
 import 'package:get/get.dart';
 import 'package:openim_common/openim_common.dart';
 
-import 'account_util.dart';
 
 class AiUtil extends GetxController {
   // final accountUtil = Get.find<AccountUtil>();
