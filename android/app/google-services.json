@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "113328061162",
+    "project_id": "luckychat-6233e",
+    "storage_bucket": "luckychat-6233e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113328061162:android:1642142b58ac2973a47593",
+        "android_client_info": {
+          "package_name": "com.lucky.chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLF6DBxpwpaMIqUwLz9vrDPRkOnpUHtvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,11 @@
 buildscript {
     ext.kotlin_version = '1.7.10'
     repositories {
+        google()
+        mavenCentral()
+        maven {
+            url 'https://jitpack.io'
+        }
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
@@ -15,23 +20,30 @@ buildscript {
                 password 'c0b08da17e3ec36c3870fed674a0bcb36abc2e23'
             }
         }
-        google()
-        mavenCentral()
-        maven {
-            url 'https://jitpack.io'
-        }
+//        google()
+//        mavenCentral()
+//        maven {
+//            url 'https://jitpack.io'
+//        }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.5'  // fcm
+//        classpath 'com.google.gms:google-services:4.3.5'  // fcm
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
         classpath 'com.huawei.agconnect:agcp:1.5.2.300'    // hms
     }
 }
 
 allprojects {
     repositories {
+        google()
+        mavenCentral()
+        maven {
+            url 'https://jitpack.io'
+        }
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
@@ -46,11 +58,11 @@ allprojects {
                 password 'c0b08da17e3ec36c3870fed674a0bcb36abc2e23'
             }
         }
-        google()
-        mavenCentral()
-        maven {
-            url 'https://jitpack.io'
-        }
+//        google()
+//        mavenCentral()
+//        maven {
+//            url 'https://jitpack.io'
+//        }
     }
 }
 

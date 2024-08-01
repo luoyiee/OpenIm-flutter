@@ -120,6 +120,8 @@ dependencies:
 #    path: openim_sdk
 
   intl: ^0.19.0
+  firebase_crashlytics: ^4.0.4
+  firebase_analytics: ^11.2.1
 
 dependency_overrides:
   wechat_assets_picker: ^8.9.0-dev.1
