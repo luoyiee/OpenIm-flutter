@@ -27,9 +27,9 @@ dependencies:
   device_info_plus:
   openim_common:
     path: ../openim_common
-#  flutter_openim_sdk: 3.5.1
-  flutter_openim_sdk:
-    path: ../openim_sdk
+  flutter_openim_sdk: 3.8.0
+#  flutter_openim_sdk:
+#  path: ../openim_sdk
 
 dev_dependencies:
   flutter_test:

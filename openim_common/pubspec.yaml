@@ -95,7 +95,7 @@ dependencies:
       path: ../local_plugin/flutter_picker-2.1.0
 #  flutter_openim_sdk:
 #    path: ../openim_sdk
-  flutter_openim_sdk: 3.5.1
+  flutter_openim_sdk: 3.8.0
   cached_network_image: ^3.2.1
   mime_type: ^1.0.0
   photo_view: ^0.14.0
